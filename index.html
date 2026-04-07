@@ -341,6 +341,7 @@
       min-height: 40px;
       color-scheme: light;
       cursor: pointer;
+      position: relative;
     }
 
     /* Figma: text-[#6e6e6e] — static "Delivery every" label */
@@ -351,22 +352,28 @@
       white-space: nowrap;
       margin-right: 4px;
       flex-shrink: 0;
+      pointer-events: none;
     }
 
-    /* Figma: text-[#2d2d2e] — dynamic week value */
-    .delivery-value-select {
+    /* Visible value display */
+    .delivery-value-display {
       flex: 1;
-      min-width: 0;
-      border: none;
-      background: transparent;
-      appearance: none;
-      -webkit-appearance: none;
-      color: #2d2d2e;
       font-family: 'Suisse Intl', sans-serif;
       font-size: 16px;
       font-weight: 400;
+      color: #2d2d2e;
+      pointer-events: none;
+    }
+
+    /* Invisible select overlays the whole field to capture clicks anywhere */
+    .delivery-value-select {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
       cursor: pointer;
-      padding: 0;
+      border: none;
       color-scheme: light;
     }
 
@@ -956,18 +963,19 @@
 
       <!-- Delivery frequency — subscription only -->
       <div class="delivery-freq-wrap" id="freq-wrap">
-        <label class="delivery-field">
+        <div class="delivery-field">
           <span class="delivery-label">Delivery every</span>
-          <select class="delivery-value-select">
+          <span class="delivery-value-display" id="delivery-display">4 weeks</span>
+          <svg width="12" height="7" viewBox="0 0 12 7" fill="none" style="flex-shrink:0;margin-left:8px;pointer-events:none">
+            <path d="M1 1L6 6L11 1" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <select class="delivery-value-select" id="delivery-select" onchange="document.getElementById('delivery-display').textContent=this.options[this.selectedIndex].text">
             <option>2 weeks</option>
             <option selected>4 weeks</option>
             <option>6 weeks</option>
             <option>8 weeks</option>
           </select>
-          <svg width="12" height="7" viewBox="0 0 12 7" fill="none" style="flex-shrink:0;margin-left:8px">
-            <path d="M1 1L6 6L11 1" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </label>
+        </div>
       </div>
 
       <!-- Benefits -->
