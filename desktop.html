@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Black Edition | Meal Replacement Protein Powder | Huel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Suisse Intl';
+      src: url('fonts/SuisseIntl-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Suisse Intl';
+      src: url('fonts/SuisseIntl-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button, select, input { font-family: 'Suisse Intl', sans-serif; }
+
+    body {
+      font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400;
+      color: #0c0c0d;
+      background: white;
+      min-width: 1100px;
+    }
+
+    /* ── Ticker ─────────────────────────────────────────────────── */
+    .ticker {
+      background: #0c0c0d;
+      overflow: hidden;
+      padding: 9px 0;
+    }
+    .ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker-anim 36s linear infinite;
+      width: max-content;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 24px;
+      font-size: 11px;
+      font-weight: 500;
+      color: white;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+    }
+    .ticker-sep {
+      width: 3px;
+      height: 3px;
+      background: #555;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    @keyframes ticker-anim {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────────── */
+    .nav {
+      background: white;
+      border-bottom: 1px solid #eae6e0;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      height: 62px;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+      color: #0c0c0d;
+      margin-right: 28px;
+      flex-shrink: 0;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+    .nav-link {
+      font-size: 14px;
+      color: #0c0c0d;
+      padding: 7px 11px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .nav-link:hover { background: #f5f2ec; }
+    .nav-link-chevron {
+      width: 8px;
+      height: 5px;
+      flex-shrink: 0;
+    }
+    .nav-cta {
+      background: #9fde9c;
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-left: 6px;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 16px;
+    }
+    .nav-pill-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f5f2ec;
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .nav-icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid #e0ddd7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #0c0c0d;
+      flex-shrink: 0;
+    }
+
+    /* ── Breadcrumb ───────────────────────────────────────────────── */
+    .breadcrumb {
+      padding: 10px 32px;
+      font-size: 12px;
+      color: #8a8179;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border-bottom: 1px solid #eae6e0;
+    }
+    .breadcrumb a { color: #8a8179; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-current { color: #0c0c0d; }
+    .breadcrumb-sep { color: #bfbab3; }
+
+    /* ── Main PDP grid ────────────────────────────────────────────── */
+    .pdp-main {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    /* ── Left panel ───────────────────────────────────────────────── */
+    .pdp-left {
+      flex: 1;
+      background: #f2ead9;
+      position: relative;
+      overflow: hidden;
+    }
+    .pdp-left-inner {
+      position: relative;
+      height: 700px;
+    }
+
+    .bestseller-badge {
+      position: absolute;
+      top: 20px;
+      left: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(242,234,217,0.88);
+      border: 1px solid rgba(0,0,0,0.13);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .hero-heading {
+      position: absolute;
+      top: 60px;
+      left: 44px;
+      width: 48%;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 44px;
+      line-height: 1.12;
+      color: #0c0c0d;
+    }
+
+    .hero-stats {
+      position: absolute;
+      top: 210px;
+      left: 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .stat-block {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-num {
+      font-size: 50px;
+      font-weight: 700;
+      line-height: 1;
+      color: #0c0c0d;
+      letter-spacing: -2px;
+      flex-shrink: 0;
+    }
+    .stat-prefix {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0c0c0d;
+      letter-spacing: -0.5px;
+      align-self: flex-end;
+      margin-bottom: 8px;
+    }
+    .stat-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      align-self: flex-end;
+      margin-bottom: 6px;
+    }
+    .stat-text-main {
+      font-size: 13px;
+      font-weight: 500;
+      color: #0c0c0d;
+      line-height: 1.2;
+    }
+    .stat-text-sub {
+      font-size: 12px;
+      color: #9a8f82;
+      line-height: 1.2;
+    }
+    .stat-gluten {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0c0c0d;
+      line-height: 1;
+    }
+
+    .hero-img {
+      position: absolute;
+      right: 4%;
+      bottom: 32px;
+      height: 82%;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* GHI Seal */
+    .ghi-seal {
+      position: absolute;
+      top: 110px;
+      left: 50%;
+      width: 88px;
+      height: 88px;
+      z-index: 2;
+    }
+
+    .hero-disclaimer {
+      position: absolute;
+      bottom: 64px;
+      left: 44px;
+      font-size: 11px;
+      color: #9a8f82;
+      max-width: 180px;
+      line-height: 1.4;
+    }
+
+    /* Carousel controls */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid #ddd9d2;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .carousel-arrow.prev { left: 16px; }
+    .carousel-arrow.next { right: 16px; }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #bfb9af;
+    }
+    .dot.active {
+      width: 18px;
+      border-radius: 3px;
+      background: #0c0c0d;
+    }
+
+    /* ── Right panel ──────────────────────────────────────────────── */
+    .pdp-right {
+      width: 462px;
+      flex-shrink: 0;
+      border-left: 1px solid #eae6e0;
+      display: flex;
+      flex-direction: column;
+      background: white;
+    }
+
+    /* Product info */
+    .product-info {
+      padding: 28px 32px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border-bottom: 8px solid #f5f2ec;
+    }
+
+    .review-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stars { display: flex; gap: 2px; }
+    .review-count {
+      font-size: 12px;
+      color: #6e6e6e;
+    }
+
+    .product-title {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.05;
+    }
+    .product-subtitle {
+      font-size: 15px;
+      color: #6e6e6e;
+      margin-top: -6px;
+    }
+
+    .pills-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1.5px solid;
+      line-height: 1;
+    }
+    .pill-green { border-color: #38a84e; color: #0c0c0d; }
+    .pill-grey  { border-color: #c0bbb4; color: #0c0c0d; }
+
+    .product-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #3a3632;
+    }
+    .product-desc strong { font-weight: 600; color: #0c0c0d; }
+
+    .nutrition-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #0c0c0d;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+    }
+
+    /* ── Flavour card (in right panel) ───────────────────────────── */
+    .flavour-card {
+      display: flex;
+      flex-direction: column;
+      padding: 0 32px;
+    }
+    .flavour-selected {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 52px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .flavour-options {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.42s cubic-bezier(0.4,0,0.2,1);
+    }
+    .flavour-options.open { max-height: 300px; }
+    .flavour-options-divider {
+      height: 1px;
+      background: #f0ede8;
+    }
+    .flavour-scroll-wrap { position: relative; }
+    #flavour-options-list {
+      overflow-y: auto;
+      max-height: 299px;
+    }
+    .flavour-scroll-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 56px;
+      background: linear-gradient(to bottom, transparent, white);
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .flavour-scroll-wrap.at-bottom::after { opacity: 0; }
+    .flavour-option-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 50px;
+      cursor: pointer;
+      transition: background 0.15s;
+      padding: 4px 32px;
+      margin: 0 -32px;
+    }
+    .flavour-option-item:hover { background: #faf9f7; }
+    .flavour-option-item:active { background: #f5f2ec; }
+    .flavour-option-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .flavour-option-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 2px 0;
+    }
+    .flavour-option-name { font-size: 13px; font-weight: 500; color: #0c0c0d; line-height: 1; }
+    .flavour-option-meta { font-size: 12px; color: #6e6e6e; line-height: 1.4; }
+    .flavour-option-check { visibility: hidden; flex-shrink: 0; }
+    .flavour-option-item.selected .flavour-option-check { visibility: visible; }
+    #flavour-chevron { transition: transform 0.3s ease; }
+    .flavour-card.open #flavour-chevron { transform: rotate(180deg); }
+    .flavour-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .flavour-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-image: url('images/flavour-chocolate.jpg');
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .flavour-product-img {
+      position: absolute;
+      width: 35.833px; height: 25px;
+      left: 2.5px; top: 7.5px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .flavour-info { display: flex; flex-direction: column; gap: 2px; }
+    .flavour-name { font-size: 13px; font-weight: 500; color: #0c0c0d; line-height: 1; }
+    .flavour-meta { font-size: 12px; color: #6e6e6e; line-height: 1.4; }
+    .flavour-cta {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6e6e6e;
+      white-space: nowrap;
+    }
+
+    /* ── Section divider ─────────────────────────────────────────── */
+    .section-divider { height: 8px; background: #f5f2ec; }
+
+    /* ── Purchase section ────────────────────────────────────────── */
+    .purchase-section {
+      padding: 16px 32px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .savings-banner-container {
+      padding: 0 32px 16px;
+    }
+
+    .toggle-card { background: #f9f8f6; border-radius: 12px; }
+    .toggle-wrap {
+      background: #ececed;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+    }
+    .toggle-btn {
+      flex: 1;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 8px;
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      transition: background 0.22s, border-color 0.22s;
+    }
+    .toggle-btn.active { background: white; border-color: #0c0c0d; }
+    .toggle-label { font-size: 14px; font-weight: 500; color: #0c0c0d; white-space: nowrap; }
+    .save-badge {
+      background: #c7f1c5;
+      border-radius: 4px;
+      padding: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.96px;
+      text-transform: uppercase;
+      color: #0c0c0d;
+    }
+    .toggle-btn:not(.active) .save-badge { background: #a8e8a5; }
+    @keyframes badge-pulse {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.12); box-shadow: 0 0 0 3px rgba(199,241,197,0.5); }
+      100% { transform: scale(1); }
+    }
+    .save-badge.pulse { animation: badge-pulse 0.5s ease forwards; }
+
+    .delivery-freq-wrap {
+      overflow: hidden;
+      transition: max-height 0.32s cubic-bezier(0.4,0,0.2,1), opacity 0.28s ease;
+      max-height: 60px;
+      opacity: 1;
+    }
+    .delivery-freq-wrap.hidden { max-height: 0; opacity: 0; }
+    .delivery-field {
+      display: flex;
+      align-items: center;
+      border: 1px solid #4b4b4b;
+      border-radius: 8px;
+      background: white;
+      padding: 8px 14px 8px 16px;
+      min-height: 40px;
+      color-scheme: light;
+    }
+    .delivery-label { font-size: 16px; color: #6e6e6e; margin-right: 4px; white-space: nowrap; flex-shrink: 0; }
+    .delivery-value-select {
+      flex: 1; border: none; background: transparent;
+      appearance: none; -webkit-appearance: none;
+      color: #2d2d2e; font-family: 'Suisse Intl', sans-serif;
+      font-size: 16px; cursor: pointer; padding: 0; color-scheme: light;
+    }
+
+    .benefits { display: flex; flex-direction: column; gap: 8px; }
+    .benefit-row { display: flex; align-items: center; gap: 4px; }
+    .benefit-row.muted .benefit-text { color: #6e6e6e; }
+    .benefit-icon { width: 20.667px; height: 20.667px; flex-shrink: 0; }
+    .benefit-text { font-size: 14px; color: #0c0c0d; line-height: 1.4; }
+
+    .cta-row { display: flex; gap: 12px; align-items: flex-start; }
+    .qty-select {
+      border: 1px solid #4b4b4b;
+      border-radius: 8px;
+      background: white;
+      padding: 8px 36px 8px 16px;
+      min-height: 40px;
+      font-size: 16px;
+      color: #2d2d2e;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%230c0c0d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      flex-shrink: 0;
+      color-scheme: light;
+    }
+    .cta-btn-wrap { flex: 1; }
+    .cta-btn {
+      width: 100%; height: 40px; border: none;
+      border-radius: 999px; background: #0c0c0d;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.18s;
+    }
+    .cta-btn:active { background: #333; }
+    .cta-label {
+      font-size: 15px; font-weight: 500; color: white;
+      line-height: 1; display: flex; align-items: center;
+      gap: 5px; white-space: nowrap;
+    }
+    .cta-strikethrough {
+      font-size: 13px; font-weight: 500;
+      color: #6e6e6e; text-decoration: line-through;
+    }
+    .savings-banner {
+      background: linear-gradient(80deg, #c7f1c5 37.836%, #cbf6d0 79.083%, #a3e6b0 100%);
+      border-radius: 8px; padding: 6px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      transition: max-height 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.24s ease;
+      max-height: 40px; opacity: 1;
+    }
+    .savings-banner.hidden { max-height: 0; opacity: 0; padding: 0; }
+    .savings-text {
+      font-size: 14px; color: #0c0c0d;
+      letter-spacing: -0.42px; white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Ticker ────────────────────────────────────────────────────── -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="7" fill="#3a3a3a"/><path d="M3 7.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Free express delivery on orders £45+
+    </span>
+    <span class="ticker-sep"></span>
+    <span class="ticker-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="7" fill="#3a3a3a"/><path d="M3 7.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Subscribe and save 10%
+    </span>
+    <span class="ticker-sep"></span>
+    <span class="ticker-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5l3.5-.5z" stroke="white" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      Huel+ loyalty programme
+    </span>
+    <span class="ticker-sep"></span>
+    <span class="ticker-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="white" stroke-width="1.2"/><path d="M4 7l2 2 4-4" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Give £20, get £20
+    </span>
+    <span class="ticker-sep"></span>
+    <!-- Duplicate for seamless loop -->
+    <span class="ticker-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="7" fill="#3a3a3a"/><path d="M3 7.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Free express delivery on orders £45+
+    </span>
+    <span class="ticker-sep"></span>
+    <span class="ticker-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="7" fill="#3a3a3a"/><path d="M3 7.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Subscribe and save 10%
+    </span>
+    <span class="ticker-sep"></span>
+    <span class="ticker-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5l3.5-.5z" stroke="white" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      Huel+ loyalty programme
+    </span>
+    <span class="ticker-sep"></span>
+    <span class="ticker-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="white" stroke-width="1.2"/><path d="M4 7l2 2 4-4" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Give £20, get £20
+    </span>
+    <span class="ticker-sep"></span>
+  </div>
+</div>
+
+<!-- ── Navigation ─────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav-logo">Huel</div>
+  <div class="nav-links">
+    <a class="nav-link">Shop all
+      <svg class="nav-link-chevron" viewBox="0 0 8 5" fill="none"><path d="M1 1l3 3 3-3" stroke="#0c0c0d" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="nav-link">Science
+      <svg class="nav-link-chevron" viewBox="0 0 8 5" fill="none"><path d="M1 1l3 3 3-3" stroke="#0c0c0d" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="nav-link">About
+      <svg class="nav-link-chevron" viewBox="0 0 8 5" fill="none"><path d="M1 1l3 3 3-3" stroke="#0c0c0d" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="nav-link">Why Huel?</a>
+    <a class="nav-link">Guides &amp; Articles</a>
+    <span class="nav-cta">Give £20, Get £20</span>
+  </div>
+  <div class="nav-right">
+    <div class="nav-pill-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.3 3.9H12L8.8 7.6l1.3 3.9L7 9.3l-3.1 2.2 1.3-3.9L2 4.9h3.7z" stroke="#0c0c0d" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      Which Huel is right for you?
+    </div>
+    <div class="nav-icon-btn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#0c0c0d" stroke-width="1.3"/><path d="M6.5 6c0-1 .67-1.5 1.5-1.5.83 0 1.5.56 1.5 1.5 0 .83-.83 1.25-1.5 1.5V9" stroke="#0c0c0d" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11" r=".7" fill="#0c0c0d"/></svg>
+    </div>
+    <div class="nav-icon-btn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="#0c0c0d" stroke-width="1.3"/><path d="M2.5 13.5C2.5 11 5 9 8 9s5.5 2 5.5 4.5" stroke="#0c0c0d" stroke-width="1.3" stroke-linecap="round"/></svg>
+    </div>
+    <div class="nav-icon-btn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3h12l-1.5 8H3.5L2 3z" stroke="#0c0c0d" stroke-width="1.3" stroke-linejoin="round"/><circle cx="6" cy="13.5" r="1" fill="#0c0c0d"/><circle cx="11" cy="13.5" r="1" fill="#0c0c0d"/><path d="M5.5 3L6 1h4l.5 2" stroke="#0c0c0d" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Breadcrumb ──────────────────────────────────────────────────── -->
+<div class="breadcrumb">
+  <a href="#">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="#">All Products</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="#">Nutritionally Complete Powders</a>
+  <span class="breadcrumb-sep">›</span>
+  <span class="breadcrumb-current">Black Edition</span>
+</div>
+
+<!-- ── Main PDP ───────────────────────────────────────────────────── -->
+<div class="pdp-main">
+
+  <!-- Left: Hero / image area -->
+  <div class="pdp-left">
+    <div class="pdp-left-inner">
+
+      <div class="bestseller-badge">🔥 BESTSELLER</div>
+
+      <h1 class="hero-heading"><em>High</em>-protein,<br><em>high</em> in fibre</h1>
+
+      <div class="hero-stats">
+        <div class="stat-block">
+          <span class="stat-num">40g</span>
+          <div class="stat-text">
+            <span class="stat-text-main">protein</span>
+            <span class="stat-text-sub">per meal</span>
+          </div>
+        </div>
+        <div class="stat-block">
+          <span class="stat-num">26</span>
+          <div class="stat-text">
+            <span class="stat-text-main">vitamins</span>
+            <span class="stat-text-sub">&amp; minerals</span>
+          </div>
+        </div>
+        <div class="stat-block">
+          <span class="stat-prefix">up to</span>
+          <span class="stat-num">10g</span>
+          <div class="stat-text">
+            <span class="stat-text-main">fibre</span>
+          </div>
+        </div>
+        <div class="stat-block">
+          <span class="stat-gluten">Gluten-free</span>
+        </div>
+      </div>
+
+      <!-- Product image -->
+      <img class="hero-img"
+           src="https://huel.imgix.net/FeatureProductImg_BlackEdition_NEW.png"
+           alt="Huel Black Edition bag">
+
+      <!-- Good Housekeeping Institute seal -->
+      <svg class="ghi-seal" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="50" cy="50" rx="48" ry="48" fill="white" stroke="#ddd" stroke-width="1"/>
+        <text x="50" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="7.5" font-style="italic" fill="#8a1010">Good Housekeeping</text>
+        <text x="50" y="38" text-anchor="middle" font-family="Georgia, serif" font-size="7.5" font-style="italic" fill="#8a1010">Institute</text>
+        <!-- Star -->
+        <path d="M50 44l2.2 6.7h7l-5.7 4.1 2.2 6.7L50 57.4l-5.7 4.1 2.2-6.7-5.7-4.1h7z" fill="#c0392b"/>
+        <text x="50" y="76" text-anchor="middle" font-family="Georgia, serif" font-size="6.5" font-weight="bold" fill="#333" letter-spacing="1">APPROVED</text>
+      </svg>
+
+      <p class="hero-disclaimer">Nutritionals may vary depending on flavour</p>
+
+      <!-- Carousel arrows -->
+      <div class="carousel-arrow prev">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="carousel-arrow next">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="carousel-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Right: Product info + purchase form -->
+  <div class="pdp-right">
+
+    <!-- Product info -->
+    <div class="product-info">
+
+      <!-- Stars + reviews -->
+      <div class="review-row">
+        <div class="stars">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l1.8 5.5H15l-4.6 3.4 1.8 5.5L8 12l-4.2 3.4 1.8-5.5L1 5.5h5.2z" fill="#38a84e"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l1.8 5.5H15l-4.6 3.4 1.8 5.5L8 12l-4.2 3.4 1.8-5.5L1 5.5h5.2z" fill="#38a84e"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l1.8 5.5H15l-4.6 3.4 1.8 5.5L8 12l-4.2 3.4 1.8-5.5L1 5.5h5.2z" fill="#38a84e"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l1.8 5.5H15l-4.6 3.4 1.8 5.5L8 12l-4.2 3.4 1.8-5.5L1 5.5h5.2z" fill="#38a84e"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l1.8 5.5H15l-4.6 3.4 1.8 5.5L8 12l-4.2 3.4 1.8-5.5L1 5.5h5.2z" fill="#38a84e"/></svg>
+        </div>
+        <span class="review-count">4,000,000 happy customers</span>
+      </div>
+
+      <!-- Title -->
+      <div>
+        <h2 class="product-title">Black Edition</h2>
+        <p class="product-subtitle">Complete high-protein powder meal</p>
+      </div>
+
+      <!-- Pills -->
+      <div class="pills-row">
+        <span class="pill pill-green">From £1.79 per meal</span>
+        <span class="pill pill-grey">From 17 meals</span>
+      </div>
+
+      <!-- Description -->
+      <p class="product-desc">
+        <strong>For when more protein actually means more.</strong> A complete meal shake with 40g of protein, high fibre, low sugar, and all 26 essential vitamins and minerals. Smooth, satisfying, and ready in seconds.
+      </p>
+
+      <!-- Nutrition link -->
+      <a class="nutrition-link">
+        Nutrition &amp; Ingredients
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2v6" stroke="#0c0c0d" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+    </div>
+
+    <!-- Flavour card -->
+    <div class="flavour-card" id="flavour-card">
+      <div class="flavour-selected" onclick="toggleFlavourOptions()">
+        <div class="flavour-left">
+          <div class="flavour-avatar">
+            <img class="flavour-product-img" src="images/choc-product.png" alt="Chocolate" style="display:none">
+          </div>
+          <div class="flavour-info">
+            <div class="flavour-name">Chocolate</div>
+            <div class="flavour-meta">£30.50/bag | 17 meals</div>
+          </div>
+        </div>
+        <div class="flavour-cta">
+          Change Flavour
+          <svg id="flavour-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none">
+            <path d="M1 1L5 5L9 1" stroke="#6e6e6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="flavour-options" id="flavour-options">
+        <div class="flavour-options-divider"></div>
+        <div class="flavour-scroll-wrap">
+          <div id="flavour-options-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Purchase section -->
+    <div class="purchase-section">
+
+      <!-- Toggle -->
+      <div class="toggle-card">
+        <div class="toggle-wrap">
+          <button class="toggle-btn active" id="btn-sub" onclick="setMode('sub')">
+            <span class="toggle-label">Regular delivery</span>
+            <span class="save-badge" id="save-badge">SAVE 10%</span>
+          </button>
+          <button class="toggle-btn" id="btn-once" onclick="setMode('once')">
+            <span class="toggle-label">One-time purchase</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Delivery frequency -->
+      <div class="delivery-freq-wrap" id="freq-wrap">
+        <div class="delivery-field">
+          <span class="delivery-label">Delivery every</span>
+          <select class="delivery-value-select">
+            <option>2 weeks</option>
+            <option selected>4 weeks</option>
+            <option>6 weeks</option>
+            <option>8 weeks</option>
+          </select>
+          <svg width="12" height="7" viewBox="0 0 12 7" fill="none" style="flex-shrink:0;margin-left:8px">
+            <path d="M1 1L6 6L11 1" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="benefits">
+        <div class="benefit-row" id="b1">
+          <img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197" alt="">
+          <span class="benefit-text">10% off all recurring orders</span>
+        </div>
+        <div class="benefit-row" id="b2">
+          <img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197" alt="">
+          <span class="benefit-text">Cancel, edit, and skip anytime</span>
+        </div>
+        <div class="benefit-row" id="b3">
+          <img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197" alt="">
+          <span class="benefit-text">Earn double Huel+ points</span>
+        </div>
+      </div>
+
+      <!-- CTA row -->
+      <div class="cta-row">
+        <select class="qty-select">
+          <option>1</option><option>2</option><option>3</option><option>4</option>
+          <option>5</option><option>6</option><option>7</option><option>8</option>
+          <option>9</option><option>10</option><option>11</option><option>12</option>
+          <option>13</option><option>14</option><option>15</option><option>16</option>
+        </select>
+        <div class="cta-btn-wrap">
+          <button class="cta-btn" id="cta-btn">
+            <span class="cta-label" id="cta-label">
+              Subscribe - £30.50&nbsp;<span class="cta-strikethrough">£33.90</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Savings banner -->
+    <div class="savings-banner-container">
+      <div class="savings-banner" id="savings-banner">
+        <span class="savings-text">You save £3.40</span>
+      </div>
+    </div>
+
+  </div><!-- /pdp-right -->
+</div><!-- /pdp-main -->
+
+<script>
+  // ── Flavour data (same as mobile) ─────────────────────────────────
+  const flavours = [
+    { name: 'Chocolate',               meta: '£30.50/bag | 17 meals', img: 'images/flavour-chocolate.jpg',       price: '£33.90', subPrice: '£30.50' },
+    { name: 'Vanilla',                 meta: '£30.50/bag | 17 meals', img: 'images/flavour-vanilla.jpg',         price: '£33.90', subPrice: '£30.50' },
+    { name: 'Banana',                  meta: '£30.50/bag | 17 meals', img: 'images/flavour-banana.jpg',          price: '£33.90', subPrice: '£30.50' },
+    { name: 'Strawberries & Cream',    meta: '£30.50/bag | 17 meals', img: 'images/flavour-strawberries.jpg',    price: '£33.90', subPrice: '£30.50' },
+    { name: 'Salted Caramel',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-salted-caramel.jpg',  price: '£33.90', subPrice: '£30.50' },
+    { name: 'Coffee Caramel',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-coffee-caramel.jpg',  price: '£33.90', subPrice: '£30.50' },
+    { name: 'Matcha Latte',            meta: '£30.50/bag | 17 meals', img: 'images/flavour-matcha.jpg',          price: '£33.90', subPrice: '£30.50' },
+    { name: 'Cinnamon Swirl',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-cinnamon.jpg',        price: '£33.90', subPrice: '£30.50' },
+    { name: 'Cookies & Cream',         meta: '£30.50/bag | 17 meals', img: 'images/flavour-cookies.png',         price: '£33.90', subPrice: '£30.50' },
+    { name: 'Unflavoured & Unsweetened', meta: '£30.50/bag | 17 meals', img: 'images/flavour-unflavoured.jpg',   price: '£33.90', subPrice: '£30.50' },
+    { name: 'Selection Box',           meta: '£45.00 | 16 single-serve packs', img: 'https://huel.imgix.net/BPOW%20Variety%20Box.jpg', price: '£45.00', subPrice: '£40.50' },
+    { name: 'Bestseller Trio',         meta: '£85.00 | 3 bags, 10 meals each', img: 'images/flavour-bestseller-trio.png', price: '£85.00', subPrice: '£76.50' },
+  ];
+
+  let selectedFlavour = 'Chocolate';
+  let currentMode = 'sub';
+
+  function buildFlavourOptions() {
+    const list = document.getElementById('flavour-options-list');
+    list.innerHTML = flavours.map(f => `
+      <div class="flavour-option-item ${f.name === selectedFlavour ? 'selected' : ''}" onclick="selectFlavour('${f.name.replace(/'/g, "\\'")}')">
+        <div class="flavour-left">
+          <div class="flavour-option-avatar" style="background-image:url('${f.img}');background-size:${f.bgSize || 'cover'};background-position:${f.bgPosition || 'center'}"></div>
+          <div class="flavour-option-info">
+            <span class="flavour-option-name">${f.name}</span>
+            <span class="flavour-option-meta">${f.meta}</span>
+          </div>
+        </div>
+        <svg class="flavour-option-check" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8L6.5 11.5L13 4.5" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    `).join('');
+  }
+
+  function updateFade() {
+    const list = document.getElementById('flavour-options-list');
+    const wrap = list.closest('.flavour-scroll-wrap');
+    const atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 2;
+    wrap.classList.toggle('at-bottom', atBottom);
+  }
+
+  function toggleFlavourOptions() {
+    const card = document.getElementById('flavour-card');
+    const options = document.getElementById('flavour-options');
+    const isOpen = card.classList.contains('open');
+    if (isOpen) {
+      card.classList.remove('open');
+      options.classList.remove('open');
+    } else {
+      buildFlavourOptions();
+      card.classList.add('open');
+      options.classList.add('open');
+      const list = document.getElementById('flavour-options-list');
+      list.removeEventListener('scroll', updateFade);
+      list.addEventListener('scroll', updateFade);
+      setTimeout(updateFade, 50);
+    }
+  }
+
+  function selectFlavour(name) {
+    selectedFlavour = name;
+    const f = flavours.find(f => f.name === name);
+    document.querySelector('.flavour-name').textContent = name;
+    document.querySelector('.flavour-meta').textContent = f.meta;
+    const avatar = document.querySelector('.flavour-avatar');
+    avatar.style.backgroundImage = `url('${f.img}')`;
+    avatar.style.backgroundSize = f.bgSize || 'cover';
+    avatar.style.backgroundPosition = f.bgPosition || 'center';
+    avatar.style.backgroundColor = '';
+    document.querySelector('.flavour-product-img').style.display = 'none';
+    const ctaLabel = document.getElementById('cta-label');
+    if (currentMode === 'sub') {
+      ctaLabel.innerHTML = `Subscribe - ${f.subPrice}&nbsp;<span class="cta-strikethrough">${f.price}</span>`;
+    } else {
+      ctaLabel.innerHTML = `Add to basket - ${f.price}`;
+    }
+    document.getElementById('flavour-card').classList.remove('open');
+    document.getElementById('flavour-options').classList.remove('open');
+  }
+
+  function setMode(mode) {
+    if (mode === currentMode) return;
+    currentMode = mode;
+    const btnSub  = document.getElementById('btn-sub');
+    const btnOnce = document.getElementById('btn-once');
+    const freqWrap = document.getElementById('freq-wrap');
+    const ctaLabel = document.getElementById('cta-label');
+    const saveBadge = document.getElementById('save-badge');
+    const savingsBanner = document.getElementById('savings-banner');
+
+    if (mode === 'sub') {
+      btnSub.classList.add('active');
+      btnOnce.classList.remove('active');
+      freqWrap.style.display = '';
+      requestAnimationFrame(() => requestAnimationFrame(() => freqWrap.classList.remove('hidden')));
+      savingsBanner.classList.remove('hidden');
+      ['b1','b2','b3'].forEach(id => document.getElementById(id).classList.remove('muted'));
+      document.querySelectorAll('.benefit-row').forEach(row => {
+        const icon = row.querySelector('.benefit-icon');
+        icon.outerHTML = `<img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197" alt="">`;
+      });
+      const sf = flavours.find(f => f.name === selectedFlavour);
+      ctaLabel.innerHTML = `Subscribe - ${sf.subPrice}&nbsp;<span class="cta-strikethrough">${sf.price}</span>`;
+    } else {
+      btnSub.classList.remove('active');
+      btnOnce.classList.add('active');
+      freqWrap.classList.add('hidden');
+      freqWrap.addEventListener('transitionend', () => {
+        if (freqWrap.classList.contains('hidden')) freqWrap.style.display = 'none';
+      }, { once: true });
+      savingsBanner.classList.add('hidden');
+      ['b1','b2','b3'].forEach(id => document.getElementById(id).classList.add('muted'));
+      document.querySelectorAll('.benefit-row').forEach(row => {
+        const icon = row.querySelector('.benefit-icon');
+        icon.outerHTML = `<img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/5f3f93b0-4510-47d6-8c30-29198ec6bd33" alt="">`;
+      });
+      const sf = flavours.find(f => f.name === selectedFlavour);
+      ctaLabel.innerHTML = `Add to basket - ${sf.price}`;
+      saveBadge.classList.remove('pulse');
+      void saveBadge.offsetWidth;
+      saveBadge.classList.add('pulse');
+    }
+  }
+</script>
+</body>
+</html>
