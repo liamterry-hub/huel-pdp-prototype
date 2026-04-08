@@ -434,17 +434,19 @@
     }
 
     /* ── Benefits ────────────────────────────────────────────── */
-    /* Figma: gap-[8px] */
+    /* Mobile Figma 8392-31588: flex-row gap-[12px] */
     .benefits {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      flex-direction: row;
+      gap: 12px;
+      align-items: flex-start;
     }
 
-    /* Figma: gap-[4px] items-center */
+    /* Mobile: equal-width columns */
     .benefit-row {
       display: flex;
-      align-items: center;
+      flex: 1 0 0;
+      align-items: flex-start;
       gap: 4px;
       transition: opacity 0.22s ease;
     }
@@ -517,7 +519,7 @@
       align-items: center;
       justify-content: center;
       padding: 0 24px;
-      transition: background 0.18s ease;
+      transition: background 0.4s cubic-bezier(0.4,0,0.2,1);
     }
 
     .cta-btn:active { background: #333; }
@@ -539,6 +541,7 @@
       align-items: center;
       gap: 5px;
       white-space: nowrap;
+      transition: opacity 0.15s ease, color 0.4s ease;
     }
 
     /* Figma: text-[13px] Medium #6e6e6e line-through */
@@ -559,9 +562,10 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      transition: max-height 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.24s ease, margin-top 0.28s ease;
-      max-height: 40px;
+      transition: max-height 0.32s cubic-bezier(0.4,0,0.2,1), opacity 0.28s ease, transform 0.32s cubic-bezier(0.4,0,0.2,1), margin-top 0.32s ease;
+      max-height: 48px;
       opacity: 1;
+      transform: translateY(0);
     }
 
     .savings-banner.hidden {
@@ -569,6 +573,7 @@
       opacity: 0;
       padding-top: 0;
       padding-bottom: 0;
+      transform: translateY(6px);
     }
 
     /* Figma: text-[14px] Regular #0c0c0d tracking-[-0.42px] lh-1.4 */
@@ -788,6 +793,10 @@
       .purchase-section { padding: 16px 24px 12px; }
       .savings-banner-container { padding: 0 24px 16px; }
       .product-title { font-size: 42px; letter-spacing: -0.84px; }
+      /* Desktop Figma 8392-31873: justify-center gap-[8px], items shrink-0 whitespace-nowrap */
+      .benefits { gap: 8px; justify-content: center; }
+      .benefit-row { flex: 0 0 auto; align-items: center; }
+      .benefit-text { white-space: nowrap; }
     }
 
     /* ── Desktop product info styling ────────────────────────── */
@@ -1053,17 +1062,13 @@
 
       <!-- Benefits -->
       <div class="benefits">
-        <div class="benefit-row" id="b1">
-          <img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197" alt="">
-          <span class="benefit-text">10% off all recurring orders</span>
-        </div>
         <div class="benefit-row" id="b2">
           <img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197" alt="">
-          <span class="benefit-text">Cancel, edit, and skip anytime</span>
+          <span class="benefit-text">Cancel, edit or skip anytime</span>
         </div>
         <div class="benefit-row" id="b3">
           <img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197" alt="">
-          <span class="benefit-text">Earn double Huel+ points</span>
+          <span class="benefit-text">Earn 2x Huel+ points</span>
         </div>
       </div>
 
@@ -1183,27 +1188,37 @@
     const ctaLabel = document.getElementById('cta-label');
     const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
     const ctaBtn = document.getElementById('cta-btn');
+
+    let newHTML;
     if (totalQty === 0) {
-      ctaBtn.classList.add('unselected');
-      ctaLabel.innerHTML = currentMode === 'sub' ? 'Save 10% everytime' : 'Add to basket';
-      return;
-    }
-    ctaBtn.classList.remove('unselected');
-    let totalSub = 0, totalReg = 0;
-    for (const [name, qty] of Object.entries(flavourQuantities)) {
-      const f = flavours.find(f => f.name === name);
-      if (f) {
-        totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
-        totalReg += qty * parseFloat(f.price.replace('£', ''));
-      }
-    }
-    const fmtSub = `£${totalSub.toFixed(2)}`;
-    const fmtReg = `£${totalReg.toFixed(2)}`;
-    if (currentMode === 'sub') {
-      ctaLabel.innerHTML = `Save 10% everytime - ${fmtSub}&nbsp;<span class="cta-strikethrough">${fmtReg}</span>`;
+      newHTML = currentMode === 'sub' ? 'Save 10% everytime' : 'Add to basket';
     } else {
-      ctaLabel.innerHTML = `Add to basket - ${fmtReg}`;
+      let totalSub = 0, totalReg = 0;
+      for (const [name, qty] of Object.entries(flavourQuantities)) {
+        const f = flavours.find(f => f.name === name);
+        if (f) {
+          totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
+          totalReg += qty * parseFloat(f.price.replace('£', ''));
+        }
+      }
+      const fmtSub = `£${totalSub.toFixed(2)}`;
+      const fmtReg = `£${totalReg.toFixed(2)}`;
+      newHTML = currentMode === 'sub'
+        ? `Save 10% everytime - ${fmtSub}&nbsp;<span class="cta-strikethrough">${fmtReg}</span>`
+        : `Add to basket - ${fmtReg}`;
     }
+
+    // Fade out, swap, fade in
+    ctaLabel.style.opacity = '0';
+    setTimeout(() => {
+      if (totalQty === 0) {
+        ctaBtn.classList.add('unselected');
+      } else {
+        ctaBtn.classList.remove('unselected');
+      }
+      ctaLabel.innerHTML = newHTML;
+      ctaLabel.style.opacity = '1';
+    }, 150);
   }
 
   function syncPrimaryVisibility() {
@@ -1334,7 +1349,7 @@
     const ctaLabel = document.getElementById('cta-label');
     const saveBadge = document.getElementById('save-badge');
     const savingsBanner = document.getElementById('savings-banner');
-    const rows = ['b1','b2','b3'];
+    const rows = ['b2','b3'];
 
     const newIconSrc = mode === 'sub'
       ? 'https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197'
