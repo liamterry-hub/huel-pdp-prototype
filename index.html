@@ -983,6 +983,8 @@
       </div>
       <div id="flavour-primary-control"></div>
     </div>
+    <!-- Added flavours visible when collapsed -->
+    <div id="flavour-added-rows"></div>
     <!-- "11 More Flavours" toggle -->
     <div class="more-flavours-toggle" onclick="toggleFlavourOptions()">
       <span id="more-flavours-label">11 More Flavours</span>
@@ -1151,6 +1153,29 @@
     document.getElementById('flavour-primary-control').innerHTML = flavourRightControl(f.name);
   }
 
+  function buildAddedRows() {
+    const container = document.getElementById('flavour-added-rows');
+    const added = flavours.filter(f => f.name !== selectedFlavour && (flavourQuantities[f.name] || 0) > 0);
+    container.innerHTML = added.map(f => `
+      <div class="flavour-option-item" onclick="selectFlavour('${f.name.replace(/'/g, "\\'")}')">
+        <div class="flavour-left">
+          <div class="flavour-option-avatar" style="background-image:url('${f.img}');background-size:${f.bgSize || 'cover'};background-position:${f.bgPosition || 'center'}"></div>
+          <div class="flavour-option-info">
+            <span class="flavour-option-name">${f.name}</span>
+            <span class="flavour-option-meta">${f.meta}</span>
+          </div>
+        </div>
+        ${flavourRightControl(f.name)}
+      </div>
+    `).join('');
+  }
+
+  function updateMoreLabel() {
+    const addedCount = flavours.filter(f => f.name !== selectedFlavour && (flavourQuantities[f.name] || 0) > 0).length;
+    const remaining = 11 - addedCount;
+    document.getElementById('more-flavours-label').textContent = `${remaining} More Flavour${remaining === 1 ? '' : 's'}`;
+  }
+
   function buildFlavourOptions() {
     const list = document.getElementById('flavour-options-list');
     const scrollTop = list.scrollTop;
@@ -1173,20 +1198,20 @@
   function addFlavour(name) {
     flavourQuantities[name] = 1;
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); }
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); buildAddedRows(); updateMoreLabel(); }
   }
 
   function incFlavour(name) {
     flavourQuantities[name] = (flavourQuantities[name] || 0) + 1;
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); }
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); buildAddedRows(); updateMoreLabel(); }
   }
 
   function decFlavour(name) {
     const qty = (flavourQuantities[name] || 0) - 1;
     if (qty <= 0) { delete flavourQuantities[name]; } else { flavourQuantities[name] = qty; }
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); }
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); buildAddedRows(); updateMoreLabel(); }
   }
 
   function updateFade() {
@@ -1200,16 +1225,19 @@
     const card = document.getElementById('flavour-card');
     const options = document.getElementById('flavour-options');
     const primary = document.getElementById('flavour-primary');
+    const addedRows = document.getElementById('flavour-added-rows');
     const expandToggle = document.querySelector('.more-flavours-toggle:not(#collapse-toggle)');
     const isOpen = card.classList.contains('open');
     if (isOpen) {
       card.classList.remove('open');
       options.classList.remove('open');
       primary.style.display = '';
+      addedRows.style.display = '';
       expandToggle.style.display = '';
     } else {
       buildFlavourOptions();
       primary.style.display = 'none';
+      addedRows.style.display = 'none';
       expandToggle.style.display = 'none';
       card.classList.add('open');
       options.classList.add('open');
@@ -1235,7 +1263,10 @@
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
     document.getElementById('flavour-primary').style.display = '';
+    document.getElementById('flavour-added-rows').style.display = '';
     document.querySelector('.more-flavours-toggle:not(#collapse-toggle)').style.display = '';
+    buildAddedRows();
+    updateMoreLabel();
   }
 
   // Initialise primary row on load
