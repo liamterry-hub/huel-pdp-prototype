@@ -1100,18 +1100,18 @@
 <script>
   // ── Flavour data ──────────────────────────────────────────────
   const flavours = [
-    { name: 'Chocolate',               meta: '£30.50/bag | 17 meals', img: 'images/flavour-chocolate.jpg',       price: '£33.90', subPrice: '£30.50' },
-    { name: 'Vanilla',                 meta: '£30.50/bag | 17 meals', img: 'images/flavour-vanilla.jpg',         price: '£33.90', subPrice: '£30.50' },
-    { name: 'Banana',                  meta: '£30.50/bag | 17 meals', img: 'images/flavour-banana.jpg',          price: '£33.90', subPrice: '£30.50' },
-    { name: 'Strawberries & Cream',    meta: '£30.50/bag | 17 meals', img: 'images/flavour-strawberries.jpg',    price: '£33.90', subPrice: '£30.50' },
-    { name: 'Salted Caramel',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-salted-caramel.jpg',  price: '£33.90', subPrice: '£30.50' },
-    { name: 'Coffee Caramel',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-coffee-caramel.jpg',  price: '£33.90', subPrice: '£30.50' },
-    { name: 'Matcha Latte',            meta: '£30.50/bag | 17 meals', img: 'images/flavour-matcha.jpg',          price: '£33.90', subPrice: '£30.50' },
-    { name: 'Cinnamon Swirl',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-cinnamon.jpg',        price: '£33.90', subPrice: '£30.50' },
-    { name: 'Cookies & Cream',         meta: '£30.50/bag | 17 meals', img: 'images/flavour-cookies.png',         price: '£33.90', subPrice: '£30.50' },
-    { name: 'Unflavoured & Unsweetened', meta: '£30.50/bag | 17 meals', img: 'images/flavour-unflavoured.jpg',   price: '£33.90', subPrice: '£30.50' },
-    { name: 'Selection Box',           meta: '£45.00 | 16 single-serve packs', img: 'https://huel.imgix.net/BPOW%20Variety%20Box.jpg', price: '£45.00', subPrice: '£40.50' },
-    { name: 'Bestseller Trio',         meta: '£85.00 | 3 bags, 10 meals each', img: 'images/flavour-bestseller-trio.png', price: '£85.00', subPrice: '£76.50' },
+    { name: 'Chocolate',               meta: '£30.50/bag | 17 meals', img: 'images/flavour-chocolate.jpg',       price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Vanilla',                 meta: '£30.50/bag | 17 meals', img: 'images/flavour-vanilla.jpg',         price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Banana',                  meta: '£30.50/bag | 17 meals', img: 'images/flavour-banana.jpg',          price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Strawberries & Cream',    meta: '£30.50/bag | 17 meals', img: 'images/flavour-strawberries.jpg',    price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Salted Caramel',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-salted-caramel.jpg',  price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Coffee Caramel',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-coffee-caramel.jpg',  price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Matcha Latte',            meta: '£30.50/bag | 17 meals', img: 'images/flavour-matcha.jpg',          price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Cinnamon Swirl',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-cinnamon.jpg',        price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Cookies & Cream',         meta: '£30.50/bag | 17 meals', img: 'images/flavour-cookies.png',         price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Unflavoured & Unsweetened', meta: '£30.50/bag | 17 meals', img: 'images/flavour-unflavoured.jpg',   price: '£33.90', subPrice: '£30.50', servings: 17 },
+    { name: 'Selection Box',           meta: '£45.00 | 16 single-serve packs', img: 'https://huel.imgix.net/BPOW%20Variety%20Box.jpg', price: '£45.00', subPrice: '£40.50', servings: 16 },
+    { name: 'Bestseller Trio',         meta: '£85.00 | 3 bags, 10 meals each', img: 'images/flavour-bestseller-trio.png', price: '£85.00', subPrice: '£76.50', servings: 30 },
   ];
 
   let selectedFlavour = 'Chocolate';
@@ -1171,16 +1171,18 @@
       banner.classList.add('hidden');
       return;
     }
-    let totalReg = 0, totalSub = 0;
+    let totalReg = 0, totalSub = 0, totalServings = 0;
     for (const [name, qty] of Object.entries(flavourQuantities)) {
       const f = flavours.find(f => f.name === name);
       if (f) {
         totalReg += qty * parseFloat(f.price.replace('£', ''));
         totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
+        totalServings += qty * f.servings;
       }
     }
     const saving = totalReg - totalSub;
-    document.getElementById('savings-text').textContent = `You save £${saving.toFixed(2)} today`;
+    const perMeal = totalSub / totalServings;
+    document.getElementById('savings-text').textContent = `You save £${saving.toFixed(2)} today / Only £${perMeal.toFixed(2)} per meal`;
     banner.classList.remove('hidden');
   }
 
