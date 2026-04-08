@@ -1094,7 +1094,7 @@
     <!-- Savings banner sits between purchase-section and divider, flush against divider -->
     <div class="savings-banner-container">
       <div class="savings-banner" id="savings-banner">
-        <span class="savings-text">You save £3.40</span>
+        <span class="savings-text" id="savings-text">You save £3.40 today</span>
       </div>
     </div>
 
@@ -1170,6 +1170,26 @@
     `).join('');
   }
 
+  function updateSavingsBanner() {
+    const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
+    let saving;
+    if (totalQty === 0) {
+      const f = flavours.find(f => f.name === selectedFlavour);
+      saving = parseFloat(f.price.replace('£', '')) - parseFloat(f.subPrice.replace('£', ''));
+    } else {
+      let totalReg = 0, totalSub = 0;
+      for (const [name, qty] of Object.entries(flavourQuantities)) {
+        const f = flavours.find(f => f.name === name);
+        if (f) {
+          totalReg += qty * parseFloat(f.price.replace('£', ''));
+          totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
+        }
+      }
+      saving = totalReg - totalSub;
+    }
+    document.getElementById('savings-text').textContent = `You save £${saving.toFixed(2)} today`;
+  }
+
   function updateCtaPrice() {
     const ctaLabel = document.getElementById('cta-label');
     const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
@@ -1236,20 +1256,20 @@
   function addFlavour(name) {
     flavourQuantities[name] = 1;
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice();
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice(); updateSavingsBanner();
   }
 
   function incFlavour(name) {
     flavourQuantities[name] = (flavourQuantities[name] || 0) + 1;
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice();
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice(); updateSavingsBanner();
   }
 
   function decFlavour(name) {
     const qty = (flavourQuantities[name] || 0) - 1;
     if (qty <= 0) { delete flavourQuantities[name]; } else { flavourQuantities[name] = qty; }
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice();
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice(); updateSavingsBanner();
   }
 
   function updateFade() {
@@ -1303,6 +1323,7 @@
     buildAddedRows();
     updateMoreLabel();
     updateCtaPrice();
+    updateSavingsBanner();
   }
 
   // Initialise on load
@@ -1353,6 +1374,7 @@
       rows.forEach(id => document.getElementById(id).classList.remove('muted'));
 
       updateCtaPrice();
+      updateSavingsBanner();
     } else {
       btnSub.classList.remove('active');
       btnOnce.classList.add('active');
@@ -1364,6 +1386,7 @@
       rows.forEach(id => document.getElementById(id).classList.add('muted'));
 
       updateCtaPrice();
+      updateSavingsBanner();
 
       saveBadge.classList.remove('pulse');
       void saveBadge.offsetWidth;
