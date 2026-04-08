@@ -1349,6 +1349,7 @@
     const ctaLabel = document.getElementById('cta-label');
     const saveBadge = document.getElementById('save-badge');
     const savingsBanner = document.getElementById('savings-banner');
+    const benefitsEl = document.querySelector('.benefits');
     const rows = ['b2','b3'];
 
     const newIconSrc = mode === 'sub'
@@ -1373,6 +1374,7 @@
       freqWrap.style.display = '';
       requestAnimationFrame(() => requestAnimationFrame(() => freqWrap.classList.remove('hidden')));
       savingsBanner.classList.remove('hidden');
+      benefitsEl.style.display = '';
       rows.forEach(id => document.getElementById(id).classList.remove('muted'));
 
       updateCtaPrice();
@@ -1385,6 +1387,7 @@
         if (freqWrap.classList.contains('hidden')) freqWrap.style.display = 'none';
       }, { once: true });
       savingsBanner.classList.add('hidden');
+      benefitsEl.style.display = 'none';
       rows.forEach(id => document.getElementById(id).classList.add('muted'));
 
       updateCtaPrice();
