@@ -1069,25 +1069,7 @@
 
       <!-- CTA row: qty + button -->
       <div class="cta-row">
-        <select class="qty-select" id="qty-select" style="display:none">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-          <option>13</option>
-          <option>14</option>
-          <option>15</option>
-          <option>16</option>
-        </select>
-        <div class="cta-btn-wrap">
+<div class="cta-btn-wrap">
           <button class="cta-btn unselected" id="cta-btn">
             <span class="cta-label" id="cta-label">
               Save 10% everytime
@@ -1199,17 +1181,14 @@
 
   function updateCtaPrice() {
     const ctaLabel = document.getElementById('cta-label');
-    const qtySelect = document.getElementById('qty-select');
     const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
     const ctaBtn = document.getElementById('cta-btn');
     if (totalQty === 0) {
-      qtySelect.style.display = 'none';
       ctaBtn.classList.add('unselected');
       ctaLabel.innerHTML = currentMode === 'sub' ? 'Save 10% everytime' : 'Add to basket';
       return;
     }
     ctaBtn.classList.remove('unselected');
-    qtySelect.style.display = '';
     let totalSub = 0, totalReg = 0;
     for (const [name, qty] of Object.entries(flavourQuantities)) {
       const f = flavours.find(f => f.name === name);
