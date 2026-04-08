@@ -1062,7 +1062,7 @@
 
       <!-- CTA row: qty + button -->
       <div class="cta-row">
-        <select class="qty-select">
+        <select class="qty-select" id="qty-select" style="display:none">
           <option>1</option>
           <option>2</option>
           <option>3</option>
@@ -1083,7 +1083,7 @@
         <div class="cta-btn-wrap">
           <button class="cta-btn" id="cta-btn">
             <span class="cta-label" id="cta-label">
-              Subscribe - £30.50&nbsp;<span class="cta-strikethrough">£33.90</span>
+              Subscribe
             </span>
           </button>
         </div>
@@ -1192,16 +1192,14 @@
 
   function updateCtaPrice() {
     const ctaLabel = document.getElementById('cta-label');
+    const qtySelect = document.getElementById('qty-select');
     const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
     if (totalQty === 0) {
-      const f = flavours.find(f => f.name === selectedFlavour);
-      if (currentMode === 'sub') {
-        ctaLabel.innerHTML = `Subscribe - ${f.subPrice}&nbsp;<span class="cta-strikethrough">${f.price}</span>`;
-      } else {
-        ctaLabel.innerHTML = `Add to basket - ${f.price}`;
-      }
+      qtySelect.style.display = 'none';
+      ctaLabel.innerHTML = currentMode === 'sub' ? 'Subscribe' : 'Add to basket';
       return;
     }
+    qtySelect.style.display = '';
     let totalSub = 0, totalReg = 0;
     for (const [name, qty] of Object.entries(flavourQuantities)) {
       const f = flavours.find(f => f.name === name);
