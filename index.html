@@ -1167,7 +1167,7 @@
   function updateSavingsBanner() {
     const banner = document.getElementById('savings-banner');
     const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
-    if (totalQty === 0 || currentMode !== 'sub') {
+    if (totalQty === 0) {
       banner.classList.add('hidden');
       return;
     }
@@ -1180,9 +1180,14 @@
         totalServings += qty * f.servings;
       }
     }
-    const saving = totalReg - totalSub;
-    const perMeal = totalSub / totalServings;
-    document.getElementById('savings-text').textContent = `You save £${saving.toFixed(2)} today / Only £${perMeal.toFixed(2)} per meal`;
+    if (currentMode === 'sub') {
+      const saving = totalReg - totalSub;
+      const perMeal = totalSub / totalServings;
+      document.getElementById('savings-text').textContent = `You save £${saving.toFixed(2)} today / Only £${perMeal.toFixed(2)} per meal`;
+    } else {
+      const perMeal = totalReg / totalServings;
+      document.getElementById('savings-text').textContent = `£${perMeal.toFixed(2)} per meal`;
+    }
     banner.classList.remove('hidden');
   }
 
@@ -1383,7 +1388,6 @@
       freqWrap.addEventListener('transitionend', () => {
         if (freqWrap.classList.contains('hidden')) freqWrap.style.display = 'none';
       }, { once: true });
-      savingsBanner.classList.add('hidden');
       benefitsEl.style.display = 'none';
       rows.forEach(id => document.getElementById(id).classList.add('muted'));
 
