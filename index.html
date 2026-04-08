@@ -1077,7 +1077,7 @@
 <div class="cta-btn-wrap">
           <button class="cta-btn unselected" id="cta-btn">
             <span class="cta-label" id="cta-label">
-              Save 10% everytime
+              Add to cart
             </span>
           </button>
         </div>
@@ -1191,7 +1191,7 @@
 
     let newHTML;
     if (totalQty === 0) {
-      newHTML = currentMode === 'sub' ? 'Save 10% everytime' : 'Add to cart';
+      newHTML = 'Add to cart';
     } else {
       let totalSub = 0, totalReg = 0;
       for (const [name, qty] of Object.entries(flavourQuantities)) {
