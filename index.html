@@ -1171,13 +1171,16 @@
   }
 
   function syncPrimaryVisibility() {
-    const qty = flavourQuantities[selectedFlavour] || 0;
-    document.getElementById('flavour-primary').style.display = qty > 0 ? '' : 'none';
+    const anyAdded = flavours.some(f => (flavourQuantities[f.name] || 0) > 0);
+    const primaryQty = flavourQuantities[selectedFlavour] || 0;
+    // Show primary if nothing added yet (default state), or if it's been added
+    document.getElementById('flavour-primary').style.display = (!anyAdded || primaryQty > 0) ? '' : 'none';
   }
 
   function updateMoreLabel() {
+    const anyAdded = flavours.some(f => (flavourQuantities[f.name] || 0) > 0);
     const addedCount = flavours.filter(f => f.name !== selectedFlavour && (flavourQuantities[f.name] || 0) > 0).length;
-    const primaryShown = (flavourQuantities[selectedFlavour] || 0) > 0 ? 1 : 0;
+    const primaryShown = (!anyAdded || (flavourQuantities[selectedFlavour] || 0) > 0) ? 1 : 0;
     const remaining = 12 - primaryShown - addedCount;
     document.getElementById('more-flavours-label').textContent = `${remaining} More Flavour${remaining === 1 ? '' : 's'}`;
   }
