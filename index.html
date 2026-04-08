@@ -1170,6 +1170,35 @@
     `).join('');
   }
 
+  function updateCtaPrice() {
+    const ctaLabel = document.getElementById('cta-label');
+    const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
+    if (totalQty === 0) {
+      const f = flavours.find(f => f.name === selectedFlavour);
+      if (currentMode === 'sub') {
+        ctaLabel.innerHTML = `Subscribe - ${f.subPrice}&nbsp;<span class="cta-strikethrough">${f.price}</span>`;
+      } else {
+        ctaLabel.innerHTML = `Add to basket - ${f.price}`;
+      }
+      return;
+    }
+    let totalSub = 0, totalReg = 0;
+    for (const [name, qty] of Object.entries(flavourQuantities)) {
+      const f = flavours.find(f => f.name === name);
+      if (f) {
+        totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
+        totalReg += qty * parseFloat(f.price.replace('£', ''));
+      }
+    }
+    const fmtSub = `£${totalSub.toFixed(2)}`;
+    const fmtReg = `£${totalReg.toFixed(2)}`;
+    if (currentMode === 'sub') {
+      ctaLabel.innerHTML = `Subscribe - ${fmtSub}&nbsp;<span class="cta-strikethrough">${fmtReg}</span>`;
+    } else {
+      ctaLabel.innerHTML = `Add to basket - ${fmtReg}`;
+    }
+  }
+
   function syncPrimaryVisibility() {
     const anyAdded = flavours.some(f => (flavourQuantities[f.name] || 0) > 0);
     const primaryQty = flavourQuantities[selectedFlavour] || 0;
@@ -1207,20 +1236,20 @@
   function addFlavour(name) {
     flavourQuantities[name] = 1;
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); }
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice();
   }
 
   function incFlavour(name) {
     flavourQuantities[name] = (flavourQuantities[name] || 0) + 1;
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); }
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice();
   }
 
   function decFlavour(name) {
     const qty = (flavourQuantities[name] || 0) - 1;
     if (qty <= 0) { delete flavourQuantities[name]; } else { flavourQuantities[name] = qty; }
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); }
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice();
   }
 
   function updateFade() {
@@ -1266,12 +1295,6 @@
     buildPrimaryRow();
     buildFlavourOptions();
     // Update CTA button price for the current mode
-    const ctaLabel = document.getElementById('cta-label');
-    if (currentMode === 'sub') {
-      ctaLabel.innerHTML = `Subscribe - ${f.subPrice}&nbsp;<span class="cta-strikethrough">${f.price}</span>`;
-    } else {
-      ctaLabel.innerHTML = `Add to basket - ${f.price}`;
-    }
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
     document.getElementById('flavour-added-rows').style.display = '';
@@ -1279,6 +1302,7 @@
     syncPrimaryVisibility();
     buildAddedRows();
     updateMoreLabel();
+    updateCtaPrice();
   }
 
   // Initialise on load
@@ -1328,8 +1352,7 @@
       savingsBanner.classList.remove('hidden');
       rows.forEach(id => document.getElementById(id).classList.remove('muted'));
 
-      const sf = flavours.find(f => f.name === selectedFlavour);
-      ctaLabel.innerHTML = `Subscribe - ${sf.subPrice}&nbsp;<span class="cta-strikethrough">${sf.price}</span>`;
+      updateCtaPrice();
     } else {
       btnSub.classList.remove('active');
       btnOnce.classList.add('active');
@@ -1340,8 +1363,7 @@
       savingsBanner.classList.add('hidden');
       rows.forEach(id => document.getElementById(id).classList.add('muted'));
 
-      const sf = flavours.find(f => f.name === selectedFlavour);
-      ctaLabel.innerHTML = `Add to basket - ${sf.price}`;
+      updateCtaPrice();
 
       saveBadge.classList.remove('pulse');
       void saveBadge.offsetWidth;
