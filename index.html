@@ -541,7 +541,7 @@
       align-items: center;
       gap: 5px;
       white-space: nowrap;
-      transition: opacity 0.15s ease, color 0.4s ease;
+      transition: color 0.35s ease;
     }
 
     /* Figma: text-[13px] Medium #6e6e6e line-through */
@@ -1208,17 +1208,12 @@
         : `Add to basket - ${fmtReg}`;
     }
 
-    // Fade out, swap, fade in
-    ctaLabel.style.opacity = '0';
-    setTimeout(() => {
-      if (totalQty === 0) {
-        ctaBtn.classList.add('unselected');
-      } else {
-        ctaBtn.classList.remove('unselected');
-      }
-      ctaLabel.innerHTML = newHTML;
-      ctaLabel.style.opacity = '1';
-    }, 150);
+    if (totalQty === 0) {
+      ctaBtn.classList.add('unselected');
+    } else {
+      ctaBtn.classList.remove('unselected');
+    }
+    ctaLabel.innerHTML = newHTML;
   }
 
   function syncPrimaryVisibility() {
