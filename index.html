@@ -522,6 +522,13 @@
 
     .cta-btn:active { background: #333; }
 
+    .cta-btn.unselected {
+      background: #ececed;
+      cursor: default;
+    }
+    .cta-btn.unselected:active { background: #ececed; }
+    .cta-btn.unselected .cta-label { color: #6e6e6e; }
+
     /* Figma: text-[15px] Medium white leading-none */
     .cta-label {
       font-size: 15px;
@@ -1081,9 +1088,9 @@
           <option>16</option>
         </select>
         <div class="cta-btn-wrap">
-          <button class="cta-btn" id="cta-btn">
+          <button class="cta-btn unselected" id="cta-btn">
             <span class="cta-label" id="cta-label">
-              Subscribe
+              Save 10% everytime
             </span>
           </button>
         </div>
@@ -1194,11 +1201,14 @@
     const ctaLabel = document.getElementById('cta-label');
     const qtySelect = document.getElementById('qty-select');
     const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
+    const ctaBtn = document.getElementById('cta-btn');
     if (totalQty === 0) {
       qtySelect.style.display = 'none';
-      ctaLabel.innerHTML = currentMode === 'sub' ? 'Subscribe' : 'Add to basket';
+      ctaBtn.classList.add('unselected');
+      ctaLabel.innerHTML = currentMode === 'sub' ? 'Save 10% everytime' : 'Add to basket';
       return;
     }
+    ctaBtn.classList.remove('unselected');
     qtySelect.style.display = '';
     let totalSub = 0, totalReg = 0;
     for (const [name, qty] of Object.entries(flavourQuantities)) {
