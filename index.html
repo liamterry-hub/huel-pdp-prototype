@@ -192,9 +192,20 @@
       line-height: 1.4;
     }
 
-    /* Chevron rotates when open */
-    #flavour-chevron { transition: transform 0.3s ease; }
-    .flavour-card.open #flavour-chevron { transform: rotate(180deg); }
+    /* "11 More Flavours" toggle row */
+    .more-flavours-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px 24px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6e6e6e;
+    }
+    #more-flavours-chevron { transition: transform 0.3s ease; }
+    .flavour-card.open #more-flavours-chevron { transform: rotate(180deg); }
 
     /* Left group: avatar + text, gap-[8px] */
     .flavour-left {
@@ -959,25 +970,27 @@
 
   <div class="divider divider-frame"></div>
 
-  <!-- Flavour card — expands inline to show all options -->
+  <!-- Flavour card — primary always visible, rest expandable -->
   <div class="flavour-card" id="flavour-card">
-    <div class="flavour-selected" onclick="toggleFlavourOptions()">
+    <!-- Primary (selected) flavour — always shown with + button -->
+    <div class="flavour-option-item" id="flavour-primary" style="cursor:default">
       <div class="flavour-left">
-        <div class="flavour-avatar">
-          <img class="flavour-product-img" src="images/choc-product.png" alt="Chocolate" style="display:none">
-        </div>
-        <div class="flavour-info">
-          <div class="flavour-name">Chocolate</div>
-          <div class="flavour-meta">£30.50/bag | 17 meals</div>
+        <div class="flavour-option-avatar" id="flavour-primary-avatar" style="background-image:url('images/flavour-chocolate.jpg');background-size:cover;background-position:center"></div>
+        <div class="flavour-option-info">
+          <span class="flavour-option-name" id="flavour-primary-name">Chocolate</span>
+          <span class="flavour-option-meta" id="flavour-primary-meta">£30.50/bag | 17 meals</span>
         </div>
       </div>
-      <div class="flavour-cta">
-        Change Flavour
-        <svg id="flavour-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none">
-          <path d="M1 1L5 5L9 1" stroke="#6e6e6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
+      <div id="flavour-primary-control"></div>
     </div>
+    <!-- "11 More Flavours" toggle -->
+    <div class="more-flavours-toggle" onclick="toggleFlavourOptions()">
+      <span id="more-flavours-label">11 More Flavours</span>
+      <svg id="more-flavours-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none">
+        <path d="M1 1L5 5L9 1" stroke="#6e6e6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <!-- Other 11 flavours -->
     <div class="flavour-options" id="flavour-options">
       <div class="flavour-options-divider"></div>
       <div class="flavour-scroll-wrap">
@@ -1121,38 +1134,51 @@
     </div>`;
   }
 
+  function buildPrimaryRow() {
+    const f = flavours.find(f => f.name === selectedFlavour);
+    const av = document.getElementById('flavour-primary-avatar');
+    av.style.backgroundImage = `url('${f.img}')`;
+    av.style.backgroundSize = f.bgSize || 'cover';
+    av.style.backgroundPosition = f.bgPosition || 'center';
+    document.getElementById('flavour-primary-name').textContent = f.name;
+    document.getElementById('flavour-primary-meta').textContent = f.meta;
+    document.getElementById('flavour-primary-control').innerHTML = flavourRightControl(f.name);
+  }
+
   function buildFlavourOptions() {
     const list = document.getElementById('flavour-options-list');
     const scrollTop = list.scrollTop;
-    list.innerHTML = flavours.map(f => `
-      <div class="flavour-option-item ${f.name === selectedFlavour ? 'selected' : ''}" onclick="selectFlavour('${f.name.replace(/'/g, "\\'")}')">
-        <div class="flavour-left">
-          <div class="flavour-option-avatar" style="background-image:url('${f.img}');background-size:${f.bgSize || 'cover'};background-position:${f.bgPosition || 'center'}"></div>
-          <div class="flavour-option-info">
-            <span class="flavour-option-name">${f.name}</span>
-            <span class="flavour-option-meta">${f.meta}</span>
+    list.innerHTML = flavours
+      .filter(f => f.name !== selectedFlavour)
+      .map(f => `
+        <div class="flavour-option-item" onclick="selectFlavour('${f.name.replace(/'/g, "\\'")}')">
+          <div class="flavour-left">
+            <div class="flavour-option-avatar" style="background-image:url('${f.img}');background-size:${f.bgSize || 'cover'};background-position:${f.bgPosition || 'center'}"></div>
+            <div class="flavour-option-info">
+              <span class="flavour-option-name">${f.name}</span>
+              <span class="flavour-option-meta">${f.meta}</span>
+            </div>
           </div>
+          ${flavourRightControl(f.name)}
         </div>
-        ${flavourRightControl(f.name)}
-      </div>
-    `).join('');
+      `).join('');
     list.scrollTop = scrollTop;
   }
 
   function addFlavour(name) {
     flavourQuantities[name] = 1;
-    buildFlavourOptions();
+    if (name === selectedFlavour) buildPrimaryRow(); else buildFlavourOptions();
   }
 
   function incFlavour(name) {
     flavourQuantities[name] = (flavourQuantities[name] || 0) + 1;
-    buildFlavourOptions();
+    if (name === selectedFlavour) buildPrimaryRow(); else buildFlavourOptions();
   }
 
   function decFlavour(name) {
     const qty = (flavourQuantities[name] || 0) - 1;
     if (qty <= 0) { delete flavourQuantities[name]; } else { flavourQuantities[name] = qty; }
-    buildFlavourOptions();
+    if (name === selectedFlavour) buildPrimaryRow(); else buildFlavourOptions();
   }
 
   function updateFade() {
@@ -1183,15 +1209,8 @@
   function selectFlavour(name) {
     selectedFlavour = name;
     const f = flavours.find(f => f.name === name);
-    document.querySelector('.flavour-name').textContent = name;
-    document.querySelector('.flavour-meta').textContent = f.meta;
-    const avatar = document.querySelector('.flavour-avatar');
-    avatar.style.backgroundImage = `url('${f.img}')`;
-    avatar.style.backgroundSize = f.bgSize || 'cover';
-    avatar.style.backgroundPosition = f.bgPosition || 'center';
-    avatar.style.backgroundColor = '';
-    // Hide the Figma product overlay — real image covers it
-    document.querySelector('.flavour-product-img').style.display = 'none';
+    buildPrimaryRow();
+    buildFlavourOptions();
     // Update CTA button price for the current mode
     const ctaLabel = document.getElementById('cta-label');
     if (currentMode === 'sub') {
@@ -1202,6 +1221,9 @@
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
   }
+
+  // Initialise primary row on load
+  buildPrimaryRow();
 
   // ── Purchase mode toggle ──────────────────────────────────────
   let currentMode = 'sub';
