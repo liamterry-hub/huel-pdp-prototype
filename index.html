@@ -144,8 +144,53 @@
       line-height: 1.4;
     }
 
-    .flavour-option-check { visibility: hidden; flex-shrink: 0; }
-    .flavour-option-item.selected .flavour-option-check { visibility: visible; }
+    /* ── Flavour + button & stepper ─────────────────────────── */
+    .flavour-qty-add {
+      width: 40px;
+      height: 40px;
+      background: #0c0c0d;
+      border: 1px solid #0c0c0d;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .flavour-qty-add:active { opacity: 0.75; }
+
+    .flavour-stepper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .flavour-stepper-btn {
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid #0c0c0d;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .flavour-stepper-btn:active { opacity: 0.6; }
+
+    .flavour-stepper-count {
+      font-family: 'Suisse Intl', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #0c0c0d;
+      min-width: 16px;
+      text-align: center;
+      line-height: 1.4;
+    }
 
     /* Chevron rotates when open */
     #flavour-chevron { transition: transform 0.3s ease; }
@@ -1055,9 +1100,30 @@
   ];
 
   let selectedFlavour = 'Chocolate';
+  const flavourQuantities = {};
+
+  function flavourRightControl(name) {
+    const qty = flavourQuantities[name] || 0;
+    const n = name.replace(/'/g, "\\'");
+    if (qty === 0) {
+      return `<button class="flavour-qty-add" onclick="event.stopPropagation();addFlavour('${n}')">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1V11M1 6H11" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>`;
+    }
+    return `<div class="flavour-stepper">
+      <button class="flavour-stepper-btn" onclick="event.stopPropagation();decFlavour('${n}')">
+        <svg width="12" height="2" viewBox="0 0 12 2" fill="none"><path d="M1 1H11" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <span class="flavour-stepper-count">${qty}</span>
+      <button class="flavour-stepper-btn" onclick="event.stopPropagation();incFlavour('${n}')">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1V11M1 6H11" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>`;
+  }
 
   function buildFlavourOptions() {
     const list = document.getElementById('flavour-options-list');
+    const scrollTop = list.scrollTop;
     list.innerHTML = flavours.map(f => `
       <div class="flavour-option-item ${f.name === selectedFlavour ? 'selected' : ''}" onclick="selectFlavour('${f.name.replace(/'/g, "\\'")}')">
         <div class="flavour-left">
@@ -1067,9 +1133,26 @@
             <span class="flavour-option-meta">${f.meta}</span>
           </div>
         </div>
-        <svg class="flavour-option-check" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6.5 11.5L13 4.5" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        ${flavourRightControl(f.name)}
       </div>
     `).join('');
+    list.scrollTop = scrollTop;
+  }
+
+  function addFlavour(name) {
+    flavourQuantities[name] = 1;
+    buildFlavourOptions();
+  }
+
+  function incFlavour(name) {
+    flavourQuantities[name] = (flavourQuantities[name] || 0) + 1;
+    buildFlavourOptions();
+  }
+
+  function decFlavour(name) {
+    const qty = (flavourQuantities[name] || 0) - 1;
+    if (qty <= 0) { delete flavourQuantities[name]; } else { flavourQuantities[name] = qty; }
+    buildFlavourOptions();
   }
 
   function updateFade() {
