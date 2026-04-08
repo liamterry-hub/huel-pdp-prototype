@@ -68,8 +68,8 @@
       transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* 1px divider + 5 rows (48px each) = 241px */
-    .flavour-options.open { max-height: 241px; }
+    /* 1px divider + 5 rows (48px each) + collapse toggle (40px) = 281px */
+    .flavour-options.open { max-height: 281px; }
 
     .flavour-options-divider {
       height: 1px;
@@ -775,7 +775,7 @@
       .flavour-option-item { padding: 8px 24px; height: 68px; }
       .flavour-avatar { width: 52px; height: 52px; }
       .flavour-option-avatar { width: 52px; height: 52px; }
-      .flavour-options.open { max-height: 341px; }
+      .flavour-options.open { max-height: 381px; }
       #flavour-options-list { max-height: 340px; }
       .flavour-options-divider { margin: 0 24px; }
       .purchase-section { padding: 16px 24px 12px; }
@@ -997,6 +997,12 @@
         <div id="flavour-options-list"></div>
         <div class="flavour-fade"></div>
       </div>
+      <div class="more-flavours-toggle" id="collapse-toggle" onclick="toggleFlavourOptions()">
+        <span>Collapse Flavours</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="transform:rotate(180deg)">
+          <path d="M1 1L5 5L9 1" stroke="#6e6e6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
     </div>
   </div>
 
@@ -1194,17 +1200,17 @@
     const card = document.getElementById('flavour-card');
     const options = document.getElementById('flavour-options');
     const primary = document.getElementById('flavour-primary');
-    const label = document.getElementById('more-flavours-label');
+    const expandToggle = document.querySelector('.more-flavours-toggle:not(#collapse-toggle)');
     const isOpen = card.classList.contains('open');
     if (isOpen) {
       card.classList.remove('open');
       options.classList.remove('open');
       primary.style.display = '';
-      label.textContent = '11 More Flavours';
+      expandToggle.style.display = '';
     } else {
       buildFlavourOptions();
       primary.style.display = 'none';
-      label.textContent = 'Collapse Flavours';
+      expandToggle.style.display = 'none';
       card.classList.add('open');
       options.classList.add('open');
       const list = document.getElementById('flavour-options-list');
@@ -1229,7 +1235,7 @@
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
     document.getElementById('flavour-primary').style.display = '';
-    document.getElementById('more-flavours-label').textContent = '11 More Flavours';
+    document.querySelector('.more-flavours-toggle:not(#collapse-toggle)').style.display = '';
   }
 
   // Initialise primary row on load
