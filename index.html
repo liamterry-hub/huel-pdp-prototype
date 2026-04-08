@@ -1093,7 +1093,7 @@
 
     <!-- Savings banner sits between purchase-section and divider, flush against divider -->
     <div class="savings-banner-container">
-      <div class="savings-banner" id="savings-banner">
+      <div class="savings-banner hidden" id="savings-banner">
         <span class="savings-text" id="savings-text">You save £3.40 today</span>
       </div>
     </div>
@@ -1171,23 +1171,23 @@
   }
 
   function updateSavingsBanner() {
+    const banner = document.getElementById('savings-banner');
     const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
-    let saving;
-    if (totalQty === 0) {
-      const f = flavours.find(f => f.name === selectedFlavour);
-      saving = parseFloat(f.price.replace('£', '')) - parseFloat(f.subPrice.replace('£', ''));
-    } else {
-      let totalReg = 0, totalSub = 0;
-      for (const [name, qty] of Object.entries(flavourQuantities)) {
-        const f = flavours.find(f => f.name === name);
-        if (f) {
-          totalReg += qty * parseFloat(f.price.replace('£', ''));
-          totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
-        }
-      }
-      saving = totalReg - totalSub;
+    if (totalQty === 0 || currentMode !== 'sub') {
+      banner.classList.add('hidden');
+      return;
     }
+    let totalReg = 0, totalSub = 0;
+    for (const [name, qty] of Object.entries(flavourQuantities)) {
+      const f = flavours.find(f => f.name === name);
+      if (f) {
+        totalReg += qty * parseFloat(f.price.replace('£', ''));
+        totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
+      }
+    }
+    const saving = totalReg - totalSub;
     document.getElementById('savings-text').textContent = `You save £${saving.toFixed(2)} today`;
+    banner.classList.remove('hidden');
   }
 
   function updateCtaPrice() {
