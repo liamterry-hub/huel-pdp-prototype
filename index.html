@@ -1191,7 +1191,7 @@
 
     let newHTML;
     if (totalQty === 0) {
-      newHTML = currentMode === 'sub' ? 'Save 10% everytime' : 'Add to basket';
+      newHTML = currentMode === 'sub' ? 'Save 10% everytime' : 'Add to cart';
     } else {
       let totalSub = 0, totalReg = 0;
       for (const [name, qty] of Object.entries(flavourQuantities)) {
@@ -1205,7 +1205,7 @@
       const fmtReg = `£${totalReg.toFixed(2)}`;
       newHTML = currentMode === 'sub'
         ? `Save 10% everytime - ${fmtSub}&nbsp;<span class="cta-strikethrough">${fmtReg}</span>`
-        : `Add to basket - ${fmtReg}`;
+        : `Add to cart - ${fmtReg}`;
     }
 
     if (totalQty === 0) {
