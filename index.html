@@ -1170,9 +1170,15 @@
     `).join('');
   }
 
+  function syncPrimaryVisibility() {
+    const qty = flavourQuantities[selectedFlavour] || 0;
+    document.getElementById('flavour-primary').style.display = qty > 0 ? '' : 'none';
+  }
+
   function updateMoreLabel() {
     const addedCount = flavours.filter(f => f.name !== selectedFlavour && (flavourQuantities[f.name] || 0) > 0).length;
-    const remaining = 11 - addedCount;
+    const primaryShown = (flavourQuantities[selectedFlavour] || 0) > 0 ? 1 : 0;
+    const remaining = 12 - primaryShown - addedCount;
     document.getElementById('more-flavours-label').textContent = `${remaining} More Flavour${remaining === 1 ? '' : 's'}`;
   }
 
@@ -1198,20 +1204,20 @@
   function addFlavour(name) {
     flavourQuantities[name] = 1;
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); buildAddedRows(); updateMoreLabel(); }
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); }
   }
 
   function incFlavour(name) {
     flavourQuantities[name] = (flavourQuantities[name] || 0) + 1;
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); buildAddedRows(); updateMoreLabel(); }
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); }
   }
 
   function decFlavour(name) {
     const qty = (flavourQuantities[name] || 0) - 1;
     if (qty <= 0) { delete flavourQuantities[name]; } else { flavourQuantities[name] = qty; }
     const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); buildAddedRows(); updateMoreLabel(); }
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); }
   }
 
   function updateFade() {
@@ -1231,9 +1237,10 @@
     if (isOpen) {
       card.classList.remove('open');
       options.classList.remove('open');
-      primary.style.display = '';
       addedRows.style.display = '';
       expandToggle.style.display = '';
+      buildPrimaryRow();
+      syncPrimaryVisibility();
       buildAddedRows();
       updateMoreLabel();
     } else {
@@ -1264,15 +1271,17 @@
     }
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
-    document.getElementById('flavour-primary').style.display = '';
     document.getElementById('flavour-added-rows').style.display = '';
     document.querySelector('.more-flavours-toggle:not(#collapse-toggle)').style.display = '';
+    syncPrimaryVisibility();
     buildAddedRows();
     updateMoreLabel();
   }
 
-  // Initialise primary row on load
+  // Initialise on load
   buildPrimaryRow();
+  syncPrimaryVisibility();
+  updateMoreLabel();
 
   // ── Purchase mode toggle ──────────────────────────────────────
   let currentMode = 'sub';
