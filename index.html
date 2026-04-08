@@ -1149,7 +1149,6 @@
     const list = document.getElementById('flavour-options-list');
     const scrollTop = list.scrollTop;
     list.innerHTML = flavours
-      .filter(f => f.name !== selectedFlavour)
       .map(f => `
         <div class="flavour-option-item" onclick="selectFlavour('${f.name.replace(/'/g, "\\'")}')">
           <div class="flavour-left">
@@ -1167,18 +1166,21 @@
 
   function addFlavour(name) {
     flavourQuantities[name] = 1;
-    if (name === selectedFlavour) buildPrimaryRow(); else buildFlavourOptions();
+    const isOpen = document.getElementById('flavour-card').classList.contains('open');
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); }
   }
 
   function incFlavour(name) {
     flavourQuantities[name] = (flavourQuantities[name] || 0) + 1;
-    if (name === selectedFlavour) buildPrimaryRow(); else buildFlavourOptions();
+    const isOpen = document.getElementById('flavour-card').classList.contains('open');
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); }
   }
 
   function decFlavour(name) {
     const qty = (flavourQuantities[name] || 0) - 1;
     if (qty <= 0) { delete flavourQuantities[name]; } else { flavourQuantities[name] = qty; }
-    if (name === selectedFlavour) buildPrimaryRow(); else buildFlavourOptions();
+    const isOpen = document.getElementById('flavour-card').classList.contains('open');
+    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); }
   }
 
   function updateFade() {
@@ -1191,12 +1193,18 @@
   function toggleFlavourOptions() {
     const card = document.getElementById('flavour-card');
     const options = document.getElementById('flavour-options');
+    const primary = document.getElementById('flavour-primary');
+    const label = document.getElementById('more-flavours-label');
     const isOpen = card.classList.contains('open');
     if (isOpen) {
       card.classList.remove('open');
       options.classList.remove('open');
+      primary.style.display = '';
+      label.textContent = '11 More Flavours';
     } else {
       buildFlavourOptions();
+      primary.style.display = 'none';
+      label.textContent = 'Collapse Flavours';
       card.classList.add('open');
       options.classList.add('open');
       const list = document.getElementById('flavour-options-list');
@@ -1220,6 +1228,8 @@
     }
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
+    document.getElementById('flavour-primary').style.display = '';
+    document.getElementById('more-flavours-label').textContent = '11 More Flavours';
   }
 
   // Initialise primary row on load
