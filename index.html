@@ -1231,6 +1231,18 @@
         </div>
       </div>
 
+      <!-- Benefits -->
+      <div class="benefits">
+        <div class="benefit-row" id="b2">
+          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 10.5L9.5 13L14 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="benefit-text">Cancel, edit or skip anytime</span>
+        </div>
+        <div class="benefit-row" id="b3">
+          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 10.5L9.5 13L14 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="benefit-text">Earn 2x Huel+ points</span>
+        </div>
+      </div>
+
       <!-- Delivery frequency — subscription only -->
       <div class="delivery-freq-wrap" id="freq-wrap">
         <div class="delivery-field">
@@ -1245,18 +1257,6 @@
             <option>6 weeks</option>
             <option>8 weeks</option>
           </select>
-        </div>
-      </div>
-
-      <!-- Benefits -->
-      <div class="benefits">
-        <div class="benefit-row" id="b2">
-          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 10.5L9.5 13L14 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="benefit-text">Cancel, edit or skip anytime</span>
-        </div>
-        <div class="benefit-row" id="b3">
-          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 10.5L9.5 13L14 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="benefit-text">Earn 2x Huel+ points</span>
         </div>
       </div>
 
@@ -1409,7 +1409,7 @@
 
   function updateCtaPrice() {
     const ctaLabel = document.getElementById('cta-label');
-    const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
+    const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0) + selectionBoxQty;
     const ctaBtn = document.getElementById('cta-btn');
 
     let newHTML;
@@ -1423,6 +1423,10 @@
           totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
           totalReg += qty * parseFloat(f.price.replace('£', ''));
         }
+      }
+      if (selectionBoxQty > 0) {
+        totalSub += selectionBoxQty * 45.00;
+        totalReg += selectionBoxQty * 45.00;
       }
       const fmtSub = `£${totalSub.toFixed(2)}`;
       const fmtReg = `£${totalReg.toFixed(2)}`;
@@ -1465,6 +1469,8 @@
     const ctrl = document.getElementById('offer-control');
     if (ctrl) ctrl.innerHTML = selectionBoxControl();
     if (document.getElementById('flavour-card').classList.contains('open')) buildFlavourOptions();
+    updateCtaPrice();
+    updateSavingsBanner();
   }
 
   function addSelectionBox() { selectionBoxQty = 1; updateSelectionBoxControl(); }
@@ -1533,13 +1539,11 @@
     const addedRows = document.getElementById('flavour-added-rows');
     const expandToggle = document.querySelector('.more-flavours-toggle:not(#collapse-toggle)');
     const isOpen = card.classList.contains('open');
-    const offerWrap = document.querySelector('.exclusive-offer-wrap');
     if (isOpen) {
       card.classList.remove('open');
       options.classList.remove('open');
       addedRows.style.display = '';
       expandToggle.style.display = '';
-      offerWrap.style.display = '';
       buildPrimaryRow();
       syncPrimaryVisibility();
       buildAddedRows();
@@ -1549,7 +1553,6 @@
       primary.style.display = 'none';
       addedRows.style.display = 'none';
       expandToggle.style.display = 'none';
-      offerWrap.style.display = 'none';
       card.classList.add('open');
       options.classList.add('open');
       const list = document.getElementById('flavour-options-list');
