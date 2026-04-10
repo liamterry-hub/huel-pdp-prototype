@@ -805,23 +805,44 @@
     .review-row {
       display: flex;
       align-items: center;
-      gap: 16px;
-    }
-    .trustpilot-logo {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .trustpilot-wordmark {
-      font-size: 14px;
-      font-weight: 400;
-      color: #0c0c0d;
-      letter-spacing: -0.1px;
+      gap: 8px;
     }
     .trustpilot-stars { display: flex; gap: 2px; }
     .review-count { font-size: 14px; color: #0c0c0d; }
     .review-count strong { font-weight: 500; }
     .review-count span { color: #6e6e6e; font-weight: 400; }
+
+    /* ── Trustpilot social proof bar ─────────────────────────── */
+    .social-proof-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 24px 24px 16px;
+    }
+    .social-proof-tp {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .social-proof-tp-wordmark {
+      font-size: 14px;
+      font-weight: 400;
+      color: #0c0c0d;
+    }
+    .social-proof-divider {
+      width: 1px;
+      height: 16px;
+      background: #ececed;
+      flex-shrink: 0;
+    }
+    .social-proof-stat {
+      font-size: 14px;
+      color: #0c0c0d;
+      white-space: nowrap;
+    }
+    .social-proof-stat strong { font-weight: 500; }
+    .social-proof-stat span { color: #6e6e6e; font-weight: 400; }
 
     .product-title {
       font-size: 30px;
@@ -968,13 +989,8 @@
   </div>
 
   <div class="desktop-product-info">
-    <!-- Trustpilot row -->
+    <!-- Stars + rating row -->
     <div class="review-row">
-      <!-- Trustpilot logo: star + wordmark -->
-      <div class="trustpilot-logo">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="#00B67A"/><path d="M10 2.5L11.7634 7.93893H17.4721L12.8544 11.3721L14.6177 16.8111L10 13.378L5.38228 16.8111L7.14557 11.3721L2.52786 7.93893H8.23664L10 2.5Z" fill="white"/></svg>
-        <span class="trustpilot-wordmark">Trustpilot</span>
-      </div>
       <!-- 4.5 star rating: 4 full + 1 half -->
       <div class="trustpilot-stars">
         <!-- Full star -->
@@ -1117,6 +1133,18 @@
     </div>
 
     <div class="divider divider-frame"></div>
+  </div>
+
+  <!-- Trustpilot social proof bar -->
+  <div class="social-proof-bar">
+    <div class="social-proof-tp">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="#00B67A"/><path d="M10 2.5L11.7634 7.93893H17.4721L12.8544 11.3721L14.6177 16.8111L10 13.378L5.38228 16.8111L7.14557 11.3721L2.52786 7.93893H8.23664L10 2.5Z" fill="white"/></svg>
+      <span class="social-proof-tp-wordmark">Trustpilot</span>
+    </div>
+    <div class="social-proof-divider"></div>
+    <span class="social-proof-stat"><strong>400m+</strong> <span>meals sold</span></span>
+    <div class="social-proof-divider"></div>
+    <span class="social-proof-stat"><strong>4m+</strong> <span>customers</span></span>
   </div>
 
 </div>
