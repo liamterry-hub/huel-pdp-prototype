@@ -458,8 +458,10 @@
       flex-shrink: 0;
       width: 20.667px;
       height: 20.667px;
-      transition: opacity 0.18s ease;
+      color: #0c0c0d;
+      transition: color 0.22s ease;
     }
+    .benefit-row.muted .benefit-icon { color: #b8b8b8; }
 
     /* Figma: text-[14px] Regular #0c0c0d lh-1.4 */
     .benefit-text {
@@ -1063,11 +1065,11 @@
       <!-- Benefits -->
       <div class="benefits">
         <div class="benefit-row" id="b2">
-          <img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197" alt="">
+          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 10.5L9.5 13L14 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="benefit-text">Cancel, edit or skip anytime</span>
         </div>
         <div class="benefit-row" id="b3">
-          <img class="benefit-icon" src="https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197" alt="">
+          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 10.5L9.5 13L14 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="benefit-text">Earn 2x Huel+ points</span>
         </div>
       </div>
@@ -1354,21 +1356,6 @@
     const benefitsEl = document.querySelector('.benefits');
     const rows = ['b2','b3'];
 
-    const newIconSrc = mode === 'sub'
-      ? 'https://www.figma.com/api/mcp/asset/c2919181-bafa-43f4-8067-2889371a2197'
-      : 'https://www.figma.com/api/mcp/asset/5f3f93b0-4510-47d6-8c30-29198ec6bd33';
-
-    // Instantly hide, swap src, then fade in
-    const icons = document.querySelectorAll('.benefit-icon');
-    icons.forEach(icon => {
-      icon.style.transition = 'none';
-      icon.style.opacity = '0';
-      icon.src = newIconSrc;
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        icon.style.transition = '';
-        icon.style.opacity = '1';
-      }));
-    });
 
     if (mode === 'sub') {
       btnSub.classList.add('active');
