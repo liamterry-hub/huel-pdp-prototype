@@ -805,10 +805,23 @@
     .review-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 16px;
     }
-    .stars { display: flex; gap: 0; }
-    .review-count { font-size: 14px; color: #4b4844; }
+    .trustpilot-logo {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .trustpilot-wordmark {
+      font-size: 14px;
+      font-weight: 400;
+      color: #0c0c0d;
+      letter-spacing: -0.1px;
+    }
+    .trustpilot-stars { display: flex; gap: 2px; }
+    .review-count { font-size: 14px; color: #0c0c0d; }
+    .review-count strong { font-weight: 500; }
+    .review-count span { color: #6e6e6e; font-weight: 400; }
 
     .product-title {
       font-size: 30px;
@@ -955,16 +968,25 @@
   </div>
 
   <div class="desktop-product-info">
-    <!-- Stars row -->
+    <!-- Trustpilot row -->
     <div class="review-row">
-      <div class="stars">
-        <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C12.2855 1.25 12.5462 1.41205 12.6725 1.66803L15.5882 7.57485L22.1085 8.52789C22.3909 8.56917 22.6254 8.76717 22.7134 9.03868C22.8015 9.31018 22.7278 9.60812 22.5233 9.80727L17.8059 14.402L18.9192 20.8932C18.9675 21.1746 18.8518 21.459 18.6208 21.6268C18.3898 21.7946 18.0836 21.8167 17.8309 21.6838L12 18.6174L6.16908 21.6838C5.91639 21.8167 5.61017 21.7946 5.37919 21.6268C5.14821 21.459 5.03252 21.1746 5.08079 20.8932L6.1941 14.402L1.47669 9.80727C1.27223 9.60812 1.19852 9.31018 1.28656 9.03868C1.37459 8.76717 1.6091 8.56917 1.89152 8.52789L8.4118 7.57485L11.3275 1.66803C11.4538 1.41205 11.7145 1.25 12 1.25Z" fill="#519A5E"/></svg>
-        <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C12.2855 1.25 12.5462 1.41205 12.6725 1.66803L15.5882 7.57485L22.1085 8.52789C22.3909 8.56917 22.6254 8.76717 22.7134 9.03868C22.8015 9.31018 22.7278 9.60812 22.5233 9.80727L17.8059 14.402L18.9192 20.8932C18.9675 21.1746 18.8518 21.459 18.6208 21.6268C18.3898 21.7946 18.0836 21.8167 17.8309 21.6838L12 18.6174L6.16908 21.6838C5.91639 21.8167 5.61017 21.7946 5.37919 21.6268C5.14821 21.459 5.03252 21.1746 5.08079 20.8932L6.1941 14.402L1.47669 9.80727C1.27223 9.60812 1.19852 9.31018 1.28656 9.03868C1.37459 8.76717 1.6091 8.56917 1.89152 8.52789L8.4118 7.57485L11.3275 1.66803C11.4538 1.41205 11.7145 1.25 12 1.25Z" fill="#519A5E"/></svg>
-        <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C12.2855 1.25 12.5462 1.41205 12.6725 1.66803L15.5882 7.57485L22.1085 8.52789C22.3909 8.56917 22.6254 8.76717 22.7134 9.03868C22.8015 9.31018 22.7278 9.60812 22.5233 9.80727L17.8059 14.402L18.9192 20.8932C18.9675 21.1746 18.8518 21.459 18.6208 21.6268C18.3898 21.7946 18.0836 21.8167 17.8309 21.6838L12 18.6174L6.16908 21.6838C5.91639 21.8167 5.61017 21.7946 5.37919 21.6268C5.14821 21.459 5.03252 21.1746 5.08079 20.8932L6.1941 14.402L1.47669 9.80727C1.27223 9.60812 1.19852 9.31018 1.28656 9.03868C1.37459 8.76717 1.6091 8.56917 1.89152 8.52789L8.4118 7.57485L11.3275 1.66803C11.4538 1.41205 11.7145 1.25 12 1.25Z" fill="#519A5E"/></svg>
-        <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C12.2855 1.25 12.5462 1.41205 12.6725 1.66803L15.5882 7.57485L22.1085 8.52789C22.3909 8.56917 22.6254 8.76717 22.7134 9.03868C22.8015 9.31018 22.7278 9.60812 22.5233 9.80727L17.8059 14.402L18.9192 20.8932C18.9675 21.1746 18.8518 21.459 18.6208 21.6268C18.3898 21.7946 18.0836 21.8167 17.8309 21.6838L12 18.6174L6.16908 21.6838C5.91639 21.8167 5.61017 21.7946 5.37919 21.6268C5.14821 21.459 5.03252 21.1746 5.08079 20.8932L6.1941 14.402L1.47669 9.80727C1.27223 9.60812 1.19852 9.31018 1.28656 9.03868C1.37459 8.76717 1.6091 8.56917 1.89152 8.52789L8.4118 7.57485L11.3275 1.66803C11.4538 1.41205 11.7145 1.25 12 1.25Z" fill="#519A5E"/></svg>
-        <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C12.2855 1.25 12.5462 1.41205 12.6725 1.66803L15.5882 7.57485L22.1085 8.52789C22.3909 8.56917 22.6254 8.76717 22.7134 9.03868C22.8015 9.31018 22.7278 9.60812 22.5233 9.80727L17.8059 14.402L18.9192 20.8932C18.9675 21.1746 18.8518 21.459 18.6208 21.6268C18.3898 21.7946 18.0836 21.8167 17.8309 21.6838L12 18.6174L6.16908 21.6838C5.91639 21.8167 5.61017 21.7946 5.37919 21.6268C5.14821 21.459 5.03252 21.1746 5.08079 20.8932L6.1941 14.402L1.47669 9.80727C1.27223 9.60812 1.19852 9.31018 1.28656 9.03868C1.37459 8.76717 1.6091 8.56917 1.89152 8.52789L8.4118 7.57485L11.3275 1.66803C11.4538 1.41205 11.7145 1.25 12 1.25Z" fill="#519A5E"/></svg>
+      <!-- Trustpilot logo: star + wordmark -->
+      <div class="trustpilot-logo">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="#00B67A"/><path d="M10 2.5L11.7634 7.93893H17.4721L12.8544 11.3721L14.6177 16.8111L10 13.378L5.38228 16.8111L7.14557 11.3721L2.52786 7.93893H8.23664L10 2.5Z" fill="white"/></svg>
+        <span class="trustpilot-wordmark">Trustpilot</span>
       </div>
-      <span class="review-count">4,000,000 happy customers</span>
+      <!-- 4.5 star rating: 4 full + 1 half -->
+      <div class="trustpilot-stars">
+        <!-- Full star -->
+        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="21" height="21" fill="#00B67A"/><path d="M10.5 2.625L12.4016 8.34161H18.4L13.5992 11.7834L15.5008 17.5L10.5 14.0583L5.49924 17.5L7.40076 11.7834L2.6 8.34161H8.59839L10.5 2.625Z" fill="white"/></svg>
+        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="21" height="21" fill="#00B67A"/><path d="M10.5 2.625L12.4016 8.34161H18.4L13.5992 11.7834L15.5008 17.5L10.5 14.0583L5.49924 17.5L7.40076 11.7834L2.6 8.34161H8.59839L10.5 2.625Z" fill="white"/></svg>
+        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="21" height="21" fill="#00B67A"/><path d="M10.5 2.625L12.4016 8.34161H18.4L13.5992 11.7834L15.5008 17.5L10.5 14.0583L5.49924 17.5L7.40076 11.7834L2.6 8.34161H8.59839L10.5 2.625Z" fill="white"/></svg>
+        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="21" height="21" fill="#00B67A"/><path d="M10.5 2.625L12.4016 8.34161H18.4L13.5992 11.7834L15.5008 17.5L10.5 14.0583L5.49924 17.5L7.40076 11.7834L2.6 8.34161H8.59839L10.5 2.625Z" fill="white"/></svg>
+        <!-- Half star -->
+        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="10.5" height="21" fill="#00B67A"/><rect x="10.5" width="10.5" height="21" fill="#DCDCE6"/><path d="M10.5 2.625L12.4016 8.34161H18.4L13.5992 11.7834L15.5008 17.5L10.5 14.0583L5.49924 17.5L7.40076 11.7834L2.6 8.34161H8.59839L10.5 2.625Z" fill="white"/></svg>
+      </div>
+      <!-- Rating text -->
+      <span class="review-count"><strong>4.3</strong> <span>from 27k reviews</span></span>
     </div>
     <!-- Title -->
     <div>
