@@ -1368,7 +1368,7 @@
 
   function updateSavingsBanner() {
     const banner = document.getElementById('savings-banner');
-    const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0);
+    const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0) + selectionBoxQty;
     if (totalQty === 0) {
       banner.classList.add('hidden');
       return;
@@ -1381,6 +1381,11 @@
         totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
         totalServings += qty * f.servings;
       }
+    }
+    if (selectionBoxQty > 0) {
+      totalReg += selectionBoxQty * 45.00;
+      totalSub += selectionBoxQty * 40.50;
+      totalServings += selectionBoxQty * 16;
     }
     if (currentMode === 'sub') {
       const saving = totalReg - totalSub;
