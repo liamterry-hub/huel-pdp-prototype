@@ -1168,9 +1168,9 @@
           <a href="#" onclick="event.preventDefault();openLearnMore()">Learn More</a>
         </div>
       </div>
-      <button class="flavour-qty-add">
+      <span id="offer-control"><button class="flavour-qty-add" onclick="addSelectionBox()">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1V11M1 6H11" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </button>
+      </button></span>
     </div>
   </div>
 
@@ -1318,6 +1318,7 @@
 
   let selectedFlavour = 'Chocolate';
   const flavourQuantities = { 'Chocolate': 1 };
+  let selectionBoxQty = 0;
 
   function flavourRightControl(name) {
     const qty = flavourQuantities[name] || 0;
@@ -1440,10 +1441,37 @@
     document.getElementById('more-flavours-label').textContent = `${remaining} More Flavour${remaining === 1 ? '' : 's'}`;
   }
 
+  function selectionBoxControl() {
+    if (selectionBoxQty === 0) {
+      return `<button class="flavour-qty-add" onclick="event.stopPropagation();addSelectionBox()"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1V11M1 6H11" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></button>`;
+    }
+    return `<div class="flavour-stepper"><button class="flavour-stepper-btn" onclick="event.stopPropagation();decSelectionBox()"><svg width="12" height="2" viewBox="0 0 12 2" fill="none"><path d="M1 1H11" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="flavour-stepper-count">${selectionBoxQty}</span><button class="flavour-stepper-btn" onclick="event.stopPropagation();incSelectionBox()"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1V11M1 6H11" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round"/></svg></button></div>`;
+  }
+
+  function updateSelectionBoxControl() {
+    const ctrl = document.getElementById('offer-control');
+    if (ctrl) ctrl.innerHTML = selectionBoxControl();
+    if (document.getElementById('flavour-card').classList.contains('open')) buildFlavourOptions();
+  }
+
+  function addSelectionBox() { selectionBoxQty = 1; updateSelectionBoxControl(); }
+  function incSelectionBox() { selectionBoxQty++; updateSelectionBoxControl(); }
+  function decSelectionBox() { selectionBoxQty = Math.max(0, selectionBoxQty - 1); updateSelectionBoxControl(); }
+
   function buildFlavourOptions() {
     const list = document.getElementById('flavour-options-list');
     const scrollTop = list.scrollTop;
-    list.innerHTML = flavours
+    const offerRow = `<div class="flavour-option-item" style="cursor:default" onclick="event.stopPropagation()">
+      <div class="flavour-left">
+        <div class="flavour-option-avatar" style="background-image:url('https://huel.imgix.net/BPOW%20Variety%20Box.jpg');background-size:cover;background-position:center"></div>
+        <div class="flavour-option-info">
+          <span class="flavour-option-name">Selection Box + 2 RTDs</span>
+          <span class="flavour-option-meta">£45.00 | FREE shipping</span>
+        </div>
+      </div>
+      ${selectionBoxControl()}
+    </div>`;
+    list.innerHTML = offerRow + flavours
       .map(f => `
         <div class="flavour-option-item" onclick="selectFlavour('${f.name.replace(/'/g, "\\'")}')">
           <div class="flavour-left">
@@ -1491,12 +1519,14 @@
     const primary = document.getElementById('flavour-primary');
     const addedRows = document.getElementById('flavour-added-rows');
     const expandToggle = document.querySelector('.more-flavours-toggle:not(#collapse-toggle)');
+    const offerWrap = document.querySelector('.exclusive-offer-wrap');
     const isOpen = card.classList.contains('open');
     if (isOpen) {
       card.classList.remove('open');
       options.classList.remove('open');
       addedRows.style.display = '';
       expandToggle.style.display = '';
+      offerWrap.style.display = '';
       buildPrimaryRow();
       syncPrimaryVisibility();
       buildAddedRows();
@@ -1506,6 +1536,7 @@
       primary.style.display = 'none';
       addedRows.style.display = 'none';
       expandToggle.style.display = 'none';
+      offerWrap.style.display = 'none';
       card.classList.add('open');
       options.classList.add('open');
       const list = document.getElementById('flavour-options-list');
