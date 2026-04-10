@@ -1234,11 +1234,11 @@
       <!-- Benefits -->
       <div class="benefits">
         <div class="benefit-row" id="b2">
-          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 10.5L9.5 13L14 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="10.5" fill="currentColor"/><path d="M7 10.5L9.5 13L14 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="benefit-text">Cancel, edit or skip anytime</span>
         </div>
         <div class="benefit-row" id="b3">
-          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 10.5L9.5 13L14 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="benefit-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="10.5" fill="currentColor"/><path d="M7 10.5L9.5 13L14 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="benefit-text">Earn 2x Huel+ points</span>
         </div>
       </div>
@@ -1312,7 +1312,6 @@
     { name: 'Cinnamon Swirl',          meta: '£30.50/bag | 17 meals', img: 'images/flavour-cinnamon.jpg',        price: '£33.90', subPrice: '£30.50', servings: 17 },
     { name: 'Cookies & Cream',         meta: '£30.50/bag | 17 meals', img: 'images/flavour-cookies.png',         price: '£33.90', subPrice: '£30.50', servings: 17 },
     { name: 'Unflavoured & Unsweetened', meta: '£30.50/bag | 17 meals', img: 'images/flavour-unflavoured.jpg',   price: '£33.90', subPrice: '£30.50', servings: 17 },
-    { name: 'Selection Box',           meta: '£45.00 | 16 single-serve packs', img: 'https://huel.imgix.net/BPOW%20Variety%20Box.jpg', price: '£45.00', subPrice: '£40.50', servings: 16 },
     { name: 'Bestseller Trio',         meta: '£85.00 | 3 bags, 10 meals each', img: 'images/flavour-bestseller-trio.png', price: '£85.00', subPrice: '£76.50', servings: 30 },
   ];
 
@@ -1467,15 +1466,19 @@
   function buildFlavourOptions() {
     const list = document.getElementById('flavour-options-list');
     const scrollTop = list.scrollTop;
-    const offerRow = `<div class="flavour-option-item" style="cursor:default" onclick="event.stopPropagation()">
-      <div class="flavour-left">
-        <div class="flavour-option-avatar" style="background-image:url('https://huel.imgix.net/BPOW%20Variety%20Box.jpg');background-size:cover;background-position:center"></div>
-        <div class="flavour-option-info">
-          <span class="flavour-option-name">Selection Box + 2 RTDs</span>
-          <span class="flavour-option-meta">£45.00 | FREE shipping</span>
+    const offerRow = `<div class="exclusive-offer-wrap" onclick="event.stopPropagation()">
+      <div class="exclusive-offer-badge">Exclusive offer</div>
+      <div class="exclusive-offer-row">
+        <div class="exclusive-offer-img" style="background-image:url('https://huel.imgix.net/BPOW%20Variety%20Box.jpg')"></div>
+        <div class="exclusive-offer-info">
+          <span class="exclusive-offer-name">Black Edition Selection Box +<br>2 Black Edition Ready-to-drink meals</span>
+          <div class="exclusive-offer-meta">
+            <span>£45.00 | FREE shipping</span>
+            <a href="#" onclick="event.preventDefault();openLearnMore()">Learn More</a>
+          </div>
         </div>
+        ${selectionBoxControl()}
       </div>
-      ${selectionBoxControl()}
     </div>`;
     list.innerHTML = offerRow + flavours
       .map(f => `
@@ -1525,12 +1528,14 @@
     const primary = document.getElementById('flavour-primary');
     const addedRows = document.getElementById('flavour-added-rows');
     const expandToggle = document.querySelector('.more-flavours-toggle:not(#collapse-toggle)');
+    const offerWrap = document.querySelector('.exclusive-offer-wrap');
     const isOpen = card.classList.contains('open');
     if (isOpen) {
       card.classList.remove('open');
       options.classList.remove('open');
       addedRows.style.display = '';
       expandToggle.style.display = '';
+      offerWrap.style.display = '';
       buildPrimaryRow();
       syncPrimaryVisibility();
       buildAddedRows();
@@ -1540,6 +1545,7 @@
       primary.style.display = 'none';
       addedRows.style.display = 'none';
       expandToggle.style.display = 'none';
+      offerWrap.style.display = 'none';
       card.classList.add('open');
       options.classList.add('open');
       const list = document.getElementById('flavour-options-list');
