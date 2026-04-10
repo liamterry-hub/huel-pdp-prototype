@@ -1317,7 +1317,7 @@
   ];
 
   let selectedFlavour = 'Chocolate';
-  const flavourQuantities = {};
+  const flavourQuantities = { 'Chocolate': 1 };
 
   function flavourRightControl(name) {
     const qty = flavourQuantities[name] || 0;
@@ -1532,13 +1532,15 @@
     updateSavingsBanner();
   }
 
+  // ── Purchase mode toggle ──────────────────────────────────────
+  let currentMode = 'sub';
+
   // Initialise on load
   buildPrimaryRow();
   syncPrimaryVisibility();
   updateMoreLabel();
-
-  // ── Purchase mode toggle ──────────────────────────────────────
-  let currentMode = 'sub';
+  updateCtaPrice();
+  updateSavingsBanner();
   if (new URLSearchParams(location.search).get('mode') === 'once') { currentMode = 'once'; document.getElementById('btn-sub').classList.remove('active'); document.getElementById('btn-once').classList.add('active'); document.getElementById('freq-wrap').classList.add('hidden'); document.getElementById('savings-banner').classList.add('hidden'); }
   if (new URLSearchParams(location.search).get('dropdown') === 'open') { window.addEventListener('load', () => { setTimeout(toggleFlavourOptions, 100); }); }
   if (new URLSearchParams(location.search).get('dropdown') === 'scrolled') { window.addEventListener('load', () => { setTimeout(() => { toggleFlavourOptions(); setTimeout(() => { const list = document.getElementById('flavour-options-list'); if (list) list.scrollTop = 180; }, 300); }, 100); }); }
