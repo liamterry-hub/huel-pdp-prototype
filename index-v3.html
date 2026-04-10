@@ -216,6 +216,71 @@
       text-decoration-skip-ink: none;
     }
 
+    /* ── Learn More modal ─────────────────────────────────────── */
+    .learn-more-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .learn-more-overlay.open { display: flex; }
+    .learn-more-modal {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 360px;
+      width: 100%;
+      position: relative;
+    }
+    .learn-more-close {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #0c0c0d;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .learn-more-title {
+      font-family: 'Suisse Intl', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #0c0c0d;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .learn-more-body {
+      font-family: 'Suisse Intl', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #0c0c0d;
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+    .learn-more-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .learn-more-list li {
+      font-family: 'Suisse Intl', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #0c0c0d;
+      line-height: 1.6;
+    }
+    .learn-more-list li::before { content: '•'; margin-right: 4px; }
+
     .flavour-stepper {
       display: flex;
       align-items: center;
@@ -1092,7 +1157,7 @@
         <span class="exclusive-offer-name">Black Edition Selection Box +<br>2 Black Edition Ready-to-drink meals</span>
         <div class="exclusive-offer-meta">
           <span>£45.00 | FREE shipping</span>
-          <a href="#">Learn More</a>
+          <a href="#" onclick="event.preventDefault();openLearnMore()">Learn More</a>
         </div>
       </div>
       <button class="flavour-qty-add">
@@ -1211,6 +1276,27 @@
   </div>
 
 
+</div>
+
+<!-- Learn More modal -->
+<div class="learn-more-overlay" id="learn-more-overlay" onclick="closeLearnMore()">
+  <div class="learn-more-modal" onclick="event.stopPropagation()">
+    <button class="learn-more-close" onclick="closeLearnMore()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 1L11 11M11 1L1 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <h3 class="learn-more-title">Selection Box (16 single-serve packs)</h3>
+    <p class="learn-more-body">The Selection Box contains 16 meals across 8 flavours, in single-serve packs. Perfect for those who are new to Black Edition and want to find their favourites. Each Selection Box contains:</p>
+    <ul class="learn-more-list">
+      <li>2x Chocolate</li>
+      <li>2x Banana</li>
+      <li>2x Strawberries &amp; Cream</li>
+      <li>2x Vanilla</li>
+      <li>2x Cookies &amp; Cream</li>
+      <li>2x Cinnamon Swirl</li>
+      <li>2x Coffee Caramel</li>
+      <li>2x Salted Caramel</li>
+    </ul>
+  </div>
 </div>
 
 <script>
@@ -1499,6 +1585,15 @@
       void saveBadge.offsetWidth;
       saveBadge.classList.add('pulse');
     }
+  }
+
+  function openLearnMore() {
+    document.getElementById('learn-more-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLearnMore() {
+    document.getElementById('learn-more-overlay').classList.remove('open');
+    document.body.style.overflow = '';
   }
 </script>
 
