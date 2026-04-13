@@ -212,8 +212,8 @@
     }
     .exclusive-offer-meta {
       display: flex;
-      gap: 8px;
-      align-items: center;
+      flex-direction: column;
+      gap: 0;
       font-size: 12px;
       color: #6e6e6e;
       line-height: 1.4;
@@ -927,6 +927,7 @@
       .flavour-avatar { width: 52px; height: 52px; }
       .flavour-option-avatar { width: 52px; height: 52px; }
       .exclusive-offer-img { width: 52px; height: 52px; }
+      .exclusive-offer-meta { flex-direction: row; gap: 8px; align-items: center; }
       .flavour-options.open { max-height: 381px; }
       #flavour-options-list { max-height: 340px; }
       .flavour-options-divider { margin: 0 24px; }
