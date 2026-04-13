@@ -64,7 +64,7 @@
     /* Expandable options list */
     .flavour-options {
       overflow: hidden;
-      max-height: 170px; /* offer row (~108px on mobile) + gap (12px) + chocolate row (48px) + 2px */
+      max-height: 0;
       transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -937,7 +937,6 @@
       .exclusive-offer-wrap { padding-top: 20px; }
       .exclusive-offer-img { width: 52px; height: 52px; }
       .exclusive-offer-meta { flex-direction: row; gap: 8px; align-items: center; }
-      .flavour-options { max-height: 159px; } /* offer row (~93px) + chocolate row (64px) + 2px */
       .flavour-options.open { max-height: 470px; }
       #flavour-options-list { max-height: 433px; gap: 0; }
       .flavour-options-divider { margin: 0 24px; }
