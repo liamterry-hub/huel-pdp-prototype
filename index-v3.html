@@ -64,12 +64,11 @@
     /* Expandable options list */
     .flavour-options {
       overflow: hidden;
-      max-height: 0;
+      max-height: 170px; /* offer row (~108px on mobile) + gap (12px) + chocolate row (48px) + 2px */
       transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* 1px divider + 5 rows (48px each) + collapse toggle (40px) = 281px */
-    .flavour-options.open { max-height: 281px; }
+    .flavour-options.open { max-height: 445px; }
 
     .flavour-options-divider {
       height: 1px;
@@ -85,13 +84,13 @@
 
     #flavour-options-list {
       overflow-y: auto;
-      max-height: 240px;
+      max-height: 408px;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
     #flavour-options-list .exclusive-offer-wrap {
-      padding-top: 14px;
+      padding-top: 25px; /* badge (top:-13px) + 25px padding = 12px from top */
     }
 
     /* Fade gradient to hint scrollable content below */
@@ -938,8 +937,9 @@
       .exclusive-offer-wrap { padding-top: 20px; }
       .exclusive-offer-img { width: 52px; height: 52px; }
       .exclusive-offer-meta { flex-direction: row; gap: 8px; align-items: center; }
-      .flavour-options.open { max-height: 381px; }
-      #flavour-options-list { max-height: 340px; gap: 0; }
+      .flavour-options { max-height: 159px; } /* offer row (~93px) + chocolate row (64px) + 2px */
+      .flavour-options.open { max-height: 470px; }
+      #flavour-options-list { max-height: 433px; gap: 0; }
       .flavour-options-divider { margin: 0 24px; }
       .purchase-section { padding: 12px 24px 12px; }
       .savings-banner-container { padding: 0 24px 16px; }
@@ -1178,47 +1178,9 @@
 
   <div class="divider divider-frame"></div>
 
-  <!-- Exclusive offer -->
-  <div class="exclusive-offer-wrap">
-    <div class="exclusive-offer-row">
-      <div class="exclusive-offer-badge">Exclusive offer</div>
-      <div class="exclusive-offer-img" style="background-image:url('https://huel.imgix.net/BPOW%20Variety%20Box.jpg')"></div>
-      <div class="exclusive-offer-info">
-        <span class="exclusive-offer-name">Black Edition Selection Box +<br>Black Edition Ready-to-drink x2</span>
-        <div class="exclusive-offer-meta">
-          <span>£45.00 | FREE shipping</span>
-          <a href="#" onclick="event.preventDefault();openLearnMore()">Learn More</a>
-        </div>
-      </div>
-      <span id="offer-control"><button class="flavour-qty-add" onclick="addSelectionBox()">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1V11M1 6H11" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </button></span>
-    </div>
-  </div>
-
   <!-- Flavour card — primary always visible, rest expandable -->
   <div class="flavour-card" id="flavour-card">
-    <!-- Primary (selected) flavour — always shown with + button -->
-    <div class="flavour-option-item" id="flavour-primary" style="cursor:default">
-      <div class="flavour-left">
-        <div class="flavour-option-avatar" id="flavour-primary-avatar" style="background-image:url('images/flavour-chocolate.jpg');background-size:cover;background-position:center"></div>
-        <div class="flavour-option-info">
-          <span class="flavour-option-name" id="flavour-primary-name">Chocolate</span>
-          <span class="flavour-option-meta" id="flavour-primary-meta">£30.50/bag | 17 meals</span>
-        </div>
-      </div>
-      <div id="flavour-primary-control"></div>
-    </div>
-    <!-- Added flavours visible when collapsed -->
-    <div id="flavour-added-rows"></div>
-    <!-- "11 More Flavours" toggle -->
-    <div class="more-flavours-toggle" onclick="toggleFlavourOptions()">
-      <span id="more-flavours-label">11 More Flavours</span>
-      <svg id="more-flavours-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none">
-        <path d="M1 1L5 5L9 1" stroke="#6e6e6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <!-- Other 11 flavours -->
+    <!-- Accordion: offer + flavours, collapsed shows offer + chocolate -->
     <div class="flavour-options" id="flavour-options">
       <div class="flavour-scroll-wrap">
         <div id="flavour-options-list"></div>
@@ -1230,6 +1192,13 @@
           <path d="M1 1L5 5L9 1" stroke="#6e6e6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
+    </div>
+    <!-- "11 More Flavours" toggle — sits below collapsed content -->
+    <div class="more-flavours-toggle" onclick="toggleFlavourOptions()">
+      <span id="more-flavours-label">11 More Flavours</span>
+      <svg id="more-flavours-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none">
+        <path d="M1 1L5 5L9 1" stroke="#6e6e6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
   </div>
 
@@ -1455,18 +1424,10 @@
     ctaLabel.innerHTML = newHTML;
   }
 
-  function syncPrimaryVisibility() {
-    const anyAdded = flavours.some(f => (flavourQuantities[f.name] || 0) > 0);
-    const primaryQty = flavourQuantities[selectedFlavour] || 0;
-    // Show primary if nothing added yet (default state), or if it's been added
-    document.getElementById('flavour-primary').style.display = (!anyAdded || primaryQty > 0) ? '' : 'none';
-  }
+  function syncPrimaryVisibility() { /* no-op: primary row removed */ }
 
   function updateMoreLabel() {
-    const anyAdded = flavours.some(f => (flavourQuantities[f.name] || 0) > 0);
-    const addedCount = flavours.filter(f => f.name !== selectedFlavour && (flavourQuantities[f.name] || 0) > 0).length;
-    const primaryShown = (!anyAdded || (flavourQuantities[selectedFlavour] || 0) > 0) ? 1 : 0;
-    const remaining = 12 - primaryShown - addedCount;
+    const remaining = flavours.length - 1;
     document.getElementById('more-flavours-label').textContent = `${remaining} More Flavour${remaining === 1 ? '' : 's'}`;
   }
 
@@ -1478,9 +1439,7 @@
   }
 
   function updateSelectionBoxControl() {
-    const ctrl = document.getElementById('offer-control');
-    if (ctrl) ctrl.innerHTML = selectionBoxControl();
-    if (document.getElementById('flavour-card').classList.contains('open')) buildFlavourOptions();
+    buildFlavourOptions();
     updateCtaPrice();
     updateSavingsBanner();
   }
@@ -1524,21 +1483,18 @@
 
   function addFlavour(name) {
     flavourQuantities[name] = 1;
-    const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice(); updateSavingsBanner();
+    buildFlavourOptions(); updateCtaPrice(); updateSavingsBanner();
   }
 
   function incFlavour(name) {
     flavourQuantities[name] = (flavourQuantities[name] || 0) + 1;
-    const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice(); updateSavingsBanner();
+    buildFlavourOptions(); updateCtaPrice(); updateSavingsBanner();
   }
 
   function decFlavour(name) {
     const qty = (flavourQuantities[name] || 0) - 1;
     if (qty <= 0) { delete flavourQuantities[name]; } else { flavourQuantities[name] = qty; }
-    const isOpen = document.getElementById('flavour-card').classList.contains('open');
-    if (isOpen) { buildFlavourOptions(); } else { buildPrimaryRow(); syncPrimaryVisibility(); buildAddedRows(); updateMoreLabel(); } updateCtaPrice(); updateSavingsBanner();
+    buildFlavourOptions(); updateCtaPrice(); updateSavingsBanner();
   }
 
   function updateFade() {
@@ -1551,27 +1507,15 @@
   function toggleFlavourOptions() {
     const card = document.getElementById('flavour-card');
     const options = document.getElementById('flavour-options');
-    const primary = document.getElementById('flavour-primary');
-    const addedRows = document.getElementById('flavour-added-rows');
     const expandToggle = document.querySelector('.more-flavours-toggle:not(#collapse-toggle)');
-    const offerWrap = document.querySelector('.exclusive-offer-wrap');
     const isOpen = card.classList.contains('open');
     if (isOpen) {
       card.classList.remove('open');
       options.classList.remove('open');
-      addedRows.style.display = '';
       expandToggle.style.display = '';
-      offerWrap.style.display = '';
-      buildPrimaryRow();
-      syncPrimaryVisibility();
-      buildAddedRows();
-      updateMoreLabel();
     } else {
       buildFlavourOptions();
-      primary.style.display = 'none';
-      addedRows.style.display = 'none';
       expandToggle.style.display = 'none';
-      offerWrap.style.display = 'none';
       card.classList.add('open');
       options.classList.add('open');
       const list = document.getElementById('flavour-options-list');
@@ -1583,17 +1527,10 @@
 
   function selectFlavour(name) {
     selectedFlavour = name;
-    const f = flavours.find(f => f.name === name);
-    buildPrimaryRow();
     buildFlavourOptions();
-    // Update CTA button price for the current mode
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
-    document.getElementById('flavour-added-rows').style.display = '';
     document.querySelector('.more-flavours-toggle:not(#collapse-toggle)').style.display = '';
-    syncPrimaryVisibility();
-    buildAddedRows();
-    updateMoreLabel();
     updateCtaPrice();
     updateSavingsBanner();
   }
@@ -1602,9 +1539,7 @@
   let currentMode = 'sub';
 
   // Initialise on load
-  buildPrimaryRow();
-  syncPrimaryVisibility();
-  updateMoreLabel();
+  buildFlavourOptions();
   updateCtaPrice();
   updateSavingsBanner();
   if (new URLSearchParams(location.search).get('mode') === 'once') { currentMode = 'once'; document.getElementById('btn-sub').classList.remove('active'); document.getElementById('btn-once').classList.add('active'); document.getElementById('freq-wrap').classList.add('hidden'); document.getElementById('savings-banner').classList.add('hidden'); }
