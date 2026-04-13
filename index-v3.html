@@ -86,10 +86,12 @@
     #flavour-options-list {
       overflow-y: auto;
       max-height: 240px;
-      padding-top: 13px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+    }
+    #flavour-options-list .exclusive-offer-wrap {
+      padding-top: 8px;
     }
 
     /* Fade gradient to hint scrollable content below */
@@ -937,7 +939,8 @@
       .exclusive-offer-img { width: 52px; height: 52px; }
       .exclusive-offer-meta { flex-direction: row; gap: 8px; align-items: center; }
       .flavour-options.open { max-height: 381px; }
-      #flavour-options-list { max-height: 340px; gap: 0; padding-top: 0; }
+      #flavour-options-list { max-height: 340px; gap: 0; }
+      #flavour-options-list .exclusive-offer-wrap { padding-top: 20px; }
       .flavour-options-divider { margin: 0 24px; }
       .purchase-section { padding: 12px 24px 12px; }
       .savings-banner-container { padding: 0 24px 16px; }
