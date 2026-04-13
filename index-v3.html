@@ -162,7 +162,7 @@
 
     /* ── Exclusive offer ──────────────────────────────────────── */
     .exclusive-offer-wrap {
-      padding: 20px 16px 8px;
+      padding: 8px 16px 0;
     }
     .exclusive-offer-badge {
       position: absolute;
@@ -324,8 +324,8 @@
       font-size: 14px;
       font-weight: 400;
       color: #0c0c0d;
-      min-width: 16px;
-      text-align: center;
+      white-space: nowrap;
+      flex-shrink: 0;
       line-height: 1.4;
     }
 
@@ -470,6 +470,8 @@
     .toggle-btn.active {
       background: white;
       border-color: #0c0c0d;
+      padding-left: 0;
+      padding-right: 0;
     }
 
     /* Figma: text-[14px] Medium #0c0c0d lh-1.4 */
