@@ -162,13 +162,12 @@
 
     /* ── Exclusive offer ──────────────────────────────────────── */
     .exclusive-offer-wrap {
-      position: relative;
       padding: 16px 24px 8px;
     }
     .exclusive-offer-badge {
       position: absolute;
-      top: 16px;
-      right: 24px;
+      top: -13px;
+      right: 0;
       border-radius: 4px;
       padding: 4px 6px;
       background: linear-gradient(130deg, #40794b 0%, #386641 100%);
@@ -180,6 +179,8 @@
       line-height: 1;
     }
     .exclusive-offer-row {
+      position: relative;
+      overflow: visible;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -1160,8 +1161,8 @@
 
   <!-- Exclusive offer -->
   <div class="exclusive-offer-wrap">
-    <div class="exclusive-offer-badge">Exclusive offer</div>
     <div class="exclusive-offer-row">
+      <div class="exclusive-offer-badge">Exclusive offer</div>
       <div class="exclusive-offer-img" style="background-image:url('https://huel.imgix.net/BPOW%20Variety%20Box.jpg')"></div>
       <div class="exclusive-offer-info">
         <span class="exclusive-offer-name">Black Edition Selection Box +<br>Black Edition Ready-to-drink x2</span>
@@ -1501,8 +1502,8 @@
     const list = document.getElementById('flavour-options-list');
     const scrollTop = list.scrollTop;
     const offerRow = `<div class="exclusive-offer-wrap" onclick="event.stopPropagation()">
-      <div class="exclusive-offer-badge">Exclusive offer</div>
       <div class="exclusive-offer-row">
+        <div class="exclusive-offer-badge">Exclusive offer</div>
         <div class="exclusive-offer-img" style="background-image:url('https://huel.imgix.net/BPOW%20Variety%20Box.jpg')"></div>
         <div class="exclusive-offer-info">
           <span class="exclusive-offer-name">Black Edition Selection Box +<br>Black Edition Ready-to-drink x2</span>
