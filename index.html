@@ -1529,8 +1529,10 @@
         ${selectionBoxControl()}
       </div>
     </div>`;
-    // Sort: selected flavour first, then other flavours with qty, then the rest
-    const sortedFlavours = [...flavours].sort((a, b) => {
+    // Sort selected flavours to top — only when collapsed so the list is stable while browsing
+    const card = document.getElementById('flavour-card');
+    const isListOpen = card && card.classList.contains('open');
+    const sortedFlavours = isListOpen ? [...flavours] : [...flavours].sort((a, b) => {
       const aSelected = a.name === selectedFlavour ? 2 : (flavourQuantities[a.name] ? 1 : 0);
       const bSelected = b.name === selectedFlavour ? 2 : (flavourQuantities[b.name] ? 1 : 0);
       return bSelected - aSelected;
@@ -1605,9 +1607,9 @@
     const isOpen = card.classList.contains('open');
     const list = document.getElementById('flavour-options-list');
     if (isOpen) {
-      buildFlavourOptions();
       card.classList.remove('open');
       options.classList.remove('open');
+      buildFlavourOptions();
       expandToggle.style.display = '';
       list.style.overflowY = 'hidden';
       list.scrollTop = 0;
@@ -1627,13 +1629,13 @@
 
   function selectFlavour(name) {
     selectedFlavour = name;
-    buildFlavourOptions();
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
     document.querySelector('.more-flavours-toggle:not(#collapse-toggle)').style.display = '';
     const listEl = document.getElementById('flavour-options-list');
     listEl.style.overflowY = 'hidden';
     listEl.scrollTop = 0;
+    buildFlavourOptions();
     updateCtaPrice();
     updateSavingsBanner();
     updateCollapsedHeight();
