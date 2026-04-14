@@ -1575,6 +1575,29 @@
     wrap.classList.toggle('at-bottom', atBottom);
   }
 
+  function updateCollapsedHeight() {
+    const options = document.getElementById('flavour-options');
+    const list = document.getElementById('flavour-options-list');
+    requestAnimationFrame(() => {
+      if (options.classList.contains('open')) return;
+      const offerEl = list.querySelector('.exclusive-offer-wrap');
+      const allItems = Array.from(list.querySelectorAll('.flavour-option-item'));
+      const selectedSet = new Set([selectedFlavour]);
+      for (const [name, qty] of Object.entries(flavourQuantities)) {
+        if (qty > 0) selectedSet.add(name);
+      }
+      let totalH = offerEl ? offerEl.offsetHeight : 0;
+      const listGap = parseFloat(getComputedStyle(list).rowGap) || 0;
+      for (const item of allItems) {
+        const nameEl = item.querySelector('.flavour-option-name');
+        if (nameEl && selectedSet.has(nameEl.textContent.trim())) {
+          totalH += listGap + item.offsetHeight;
+        } else break;
+      }
+      options.style.maxHeight = totalH + 'px';
+    });
+  }
+
   function toggleFlavourOptions() {
     const card = document.getElementById('flavour-card');
     const options = document.getElementById('flavour-options');
@@ -1588,11 +1611,13 @@
       expandToggle.style.display = '';
       list.style.overflowY = 'hidden';
       list.scrollTop = 0;
+      updateCollapsedHeight();
     } else {
       buildFlavourOptions();
       expandToggle.style.display = 'none';
       card.classList.add('open');
       options.classList.add('open');
+      options.style.maxHeight = (window.innerWidth >= 1024 ? 470 : 445) + 'px';
       list.style.overflowY = 'auto';
       list.removeEventListener('scroll', updateFade);
       list.addEventListener('scroll', updateFade);
@@ -1611,6 +1636,7 @@
     listEl.scrollTop = 0;
     updateCtaPrice();
     updateSavingsBanner();
+    updateCollapsedHeight();
   }
 
   // ── Purchase mode toggle ──────────────────────────────────────
@@ -1620,6 +1646,7 @@
   buildFlavourOptions();
   updateCtaPrice();
   updateSavingsBanner();
+  updateCollapsedHeight();
   if (new URLSearchParams(location.search).get('mode') === 'once') { currentMode = 'once'; document.getElementById('btn-sub').classList.remove('active'); document.getElementById('btn-once').classList.add('active'); const fw = document.getElementById('freq-wrap'); fw.classList.add('hidden'); fw.style.display = 'none'; document.querySelector('.benefits').style.display = 'none'; document.getElementById('price-cta-wrap').classList.add('one-time'); updateCtaPrice(); updateSavingsBanner(); }
   if (new URLSearchParams(location.search).get('dropdown') === 'open') { window.addEventListener('load', () => { setTimeout(toggleFlavourOptions, 100); }); }
   if (new URLSearchParams(location.search).get('dropdown') === 'scrolled') { window.addEventListener('load', () => { setTimeout(() => { toggleFlavourOptions(); setTimeout(() => { const list = document.getElementById('flavour-options-list'); if (list) list.scrollTop = 180; }, 300); }, 100); }); }
