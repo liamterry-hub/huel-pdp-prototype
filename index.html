@@ -660,8 +660,28 @@
       white-space: nowrap;
     }
 
+    /* ── Price + CTA wrap ────────────────────────────────────── */
+    /* Stacked column in sub mode, single row in one-time mode */
+    #price-cta-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    #price-cta-wrap.one-time {
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+    #price-cta-wrap.one-time .price-row {
+      justify-content: flex-start;
+      flex-shrink: 0;
+    }
+    #price-cta-wrap.one-time .cta-row {
+      flex: 1;
+      min-width: 0;
+    }
+
     /* ── CTA row ─────────────────────────────────────────────── */
-    /* Figma: gap-[12px] items-start */
     .cta-row {
       display: flex;
       gap: 12px;
@@ -698,7 +718,7 @@
       min-width: 0;
     }
 
-    /* Figma: bg-[#0c0c0d] h-[40px] px-[24px] rounded-[999px] w-full */
+    /* Figma: bg-[#0c0c0d] h-[56px] px-[24px] rounded-[999px] w-full */
     .cta-btn {
       width: 100%;
       height: 56px;
@@ -710,6 +730,7 @@
       align-items: center;
       justify-content: center;
       padding: 0 24px;
+      overflow: hidden;
       transition: background 0.4s cubic-bezier(0.4,0,0.2,1);
     }
 
@@ -1244,41 +1265,44 @@
       <!-- Separator -->
       <div class="section-divider-line" id="benefits-separator"></div>
 
-      <!-- Price row -->
-      <div class="price-row" id="price-row">
-        <div class="price-amounts">
-          <span class="price-main" id="price-main">£30.50</span>
-          <span class="price-strike" id="price-strike">£33.90</span>
-        </div>
-        <div class="save-today-pill" id="save-today">Save £3.40 today</div>
-      </div>
+      <!-- Price + delivery + CTA — stacked in sub, side-by-side in one-time -->
+      <div id="price-cta-wrap">
 
-      <!-- Delivery frequency — subscription only -->
-      <div class="delivery-freq-wrap" id="freq-wrap">
-        <div class="delivery-field">
-          <span class="delivery-label">Delivery every</span>
-          <span class="delivery-value-display" id="delivery-display">4 weeks</span>
-          <svg width="12" height="7" viewBox="0 0 12 7" fill="none" style="flex-shrink:0;margin-left:8px;pointer-events:none">
-            <path d="M1 1L6 6L11 1" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <select class="delivery-value-select" id="delivery-select" onchange="document.getElementById('delivery-display').textContent=this.options[this.selectedIndex].text">
-            <option>2 weeks</option>
-            <option selected>4 weeks</option>
-            <option>6 weeks</option>
-            <option>8 weeks</option>
-          </select>
+        <!-- Price row -->
+        <div class="price-row" id="price-row">
+          <div class="price-amounts">
+            <span class="price-main" id="price-main">£30.50</span>
+            <span class="price-strike" id="price-strike">£33.90</span>
+          </div>
+          <div class="save-today-pill" id="save-today">Save £3.40 today</div>
         </div>
-      </div>
 
-      <!-- CTA row: qty + button -->
-      <div class="cta-row">
-<div class="cta-btn-wrap">
-          <button class="cta-btn unselected" id="cta-btn">
-            <span class="cta-label" id="cta-label">
-              Add to cart
-            </span>
-          </button>
+        <!-- Delivery frequency — subscription only -->
+        <div class="delivery-freq-wrap" id="freq-wrap">
+          <div class="delivery-field">
+            <span class="delivery-label">Delivery every</span>
+            <span class="delivery-value-display" id="delivery-display">4 weeks</span>
+            <svg width="12" height="7" viewBox="0 0 12 7" fill="none" style="flex-shrink:0;margin-left:8px;pointer-events:none">
+              <path d="M1 1L6 6L11 1" stroke="#0c0c0d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <select class="delivery-value-select" id="delivery-select" onchange="document.getElementById('delivery-display').textContent=this.options[this.selectedIndex].text">
+              <option>2 weeks</option>
+              <option selected>4 weeks</option>
+              <option>6 weeks</option>
+              <option>8 weeks</option>
+            </select>
+          </div>
         </div>
+
+        <!-- CTA button -->
+        <div class="cta-row">
+          <div class="cta-btn-wrap">
+            <button class="cta-btn unselected" id="cta-btn">
+              <span class="cta-label" id="cta-label">Add to cart</span>
+            </button>
+          </div>
+        </div>
+
       </div>
 
       <!-- Separator -->
@@ -1459,7 +1483,8 @@
       const perMeal = totalSub / totalServings;
       ctaLabel.innerHTML = `Add to cart <span class="cta-separator">|</span><span class="cta-per-meal"> Only £${perMeal.toFixed(2)} per meal</span>`;
     } else {
-      ctaLabel.innerHTML = `Add to cart — £${totalReg.toFixed(2)}`;
+      const perMeal = totalReg / totalServings;
+      ctaLabel.innerHTML = `Add to cart <span class="cta-separator">|</span><span class="cta-per-meal"> Only £${perMeal.toFixed(2)} per meal</span>`;
     }
   }
 
@@ -1581,7 +1606,7 @@
   buildFlavourOptions();
   updateCtaPrice();
   updateSavingsBanner();
-  if (new URLSearchParams(location.search).get('mode') === 'once') { currentMode = 'once'; document.getElementById('btn-sub').classList.remove('active'); document.getElementById('btn-once').classList.add('active'); document.getElementById('freq-wrap').classList.add('hidden'); document.querySelector('.benefits').style.display = 'none'; const bs = document.getElementById('benefits-separator'); if (bs) bs.style.display = 'none'; updateSavingsBanner(); }
+  if (new URLSearchParams(location.search).get('mode') === 'once') { currentMode = 'once'; document.getElementById('btn-sub').classList.remove('active'); document.getElementById('btn-once').classList.add('active'); const fw = document.getElementById('freq-wrap'); fw.classList.add('hidden'); fw.style.display = 'none'; document.querySelector('.benefits').style.display = 'none'; document.getElementById('price-cta-wrap').classList.add('one-time'); updateCtaPrice(); updateSavingsBanner(); }
   if (new URLSearchParams(location.search).get('dropdown') === 'open') { window.addEventListener('load', () => { setTimeout(toggleFlavourOptions, 100); }); }
   if (new URLSearchParams(location.search).get('dropdown') === 'scrolled') { window.addEventListener('load', () => { setTimeout(() => { toggleFlavourOptions(); setTimeout(() => { const list = document.getElementById('flavour-options-list'); if (list) list.scrollTop = 180; }, 300); }, 100); }); }
 
@@ -1595,6 +1620,7 @@
     const saveBadge = document.getElementById('save-badge');
     const benefitsEl = document.querySelector('.benefits');
     const benefitsSep = document.getElementById('benefits-separator');
+    const priceCtaWrap = document.getElementById('price-cta-wrap');
     const rows = ['b2','b3'];
 
     if (mode === 'sub') {
@@ -1604,6 +1630,7 @@
       requestAnimationFrame(() => requestAnimationFrame(() => freqWrap.classList.remove('hidden')));
       benefitsEl.style.display = '';
       if (benefitsSep) benefitsSep.style.display = '';
+      priceCtaWrap.classList.remove('one-time');
       rows.forEach(id => document.getElementById(id).classList.remove('muted'));
 
       updateCtaPrice();
@@ -1612,11 +1639,10 @@
       btnSub.classList.remove('active');
       btnOnce.classList.add('active');
       freqWrap.classList.add('hidden');
-      freqWrap.addEventListener('transitionend', () => {
-        if (freqWrap.classList.contains('hidden')) freqWrap.style.display = 'none';
-      }, { once: true });
+      freqWrap.style.display = 'none';
       benefitsEl.style.display = 'none';
-      if (benefitsSep) benefitsSep.style.display = 'none';
+      if (benefitsSep) benefitsSep.style.display = '';
+      priceCtaWrap.classList.add('one-time');
       rows.forEach(id => document.getElementById(id).classList.add('muted'));
 
       updateCtaPrice();
