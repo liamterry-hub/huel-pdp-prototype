@@ -64,11 +64,11 @@
     /* Expandable options list */
     .flavour-options {
       overflow: hidden;
-      max-height: 178px;
+      max-height: 170px;
       transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .flavour-options.open { max-height: 485px; }
+    .flavour-options.open { max-height: 445px; }
 
     .flavour-options-divider {
       height: 1px;
@@ -84,10 +84,10 @@
 
     #flavour-options-list {
       overflow-y: auto;
-      max-height: 448px;
+      max-height: 408px;
       display: flex;
       flex-direction: column;
-      gap: 0;
+      gap: 12px;
     }
     #flavour-options-list .exclusive-offer-wrap {
       padding-top: 25px; /* badge (top:-13px) + 25px padding = 12px from top */
@@ -113,7 +113,7 @@
       align-items: center;
       gap: 4px;
       padding: 4px 24px;
-      height: 68px;
+      height: 48px;
       cursor: pointer;
       transition: background 0.15s;
     }
@@ -937,9 +937,9 @@
       .exclusive-offer-wrap { padding-top: 20px; }
       .exclusive-offer-img { width: 52px; height: 52px; }
       .exclusive-offer-meta { flex-direction: row; gap: 8px; align-items: center; }
-      .flavour-options { max-height: 163px; }
+      .flavour-options { max-height: 159px; }
       .flavour-options.open { max-height: 470px; }
-      #flavour-options-list { max-height: 433px; }
+      #flavour-options-list { max-height: 433px; gap: 0; }
       .flavour-options-divider { margin: 0 24px; }
       .purchase-section { padding: 12px 24px 12px; }
       .savings-banner-container { padding: 0 24px 16px; }
