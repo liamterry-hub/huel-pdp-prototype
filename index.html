@@ -83,7 +83,7 @@
     }
 
     #flavour-options-list {
-      overflow-y: auto;
+      overflow-y: hidden;
       max-height: 408px;
       display: flex;
       flex-direction: column;
@@ -1573,16 +1573,18 @@
     const options = document.getElementById('flavour-options');
     const expandToggle = document.querySelector('.more-flavours-toggle:not(#collapse-toggle)');
     const isOpen = card.classList.contains('open');
+    const list = document.getElementById('flavour-options-list');
     if (isOpen) {
       card.classList.remove('open');
       options.classList.remove('open');
       expandToggle.style.display = '';
+      list.style.overflowY = 'hidden';
     } else {
       buildFlavourOptions();
       expandToggle.style.display = 'none';
       card.classList.add('open');
       options.classList.add('open');
-      const list = document.getElementById('flavour-options-list');
+      list.style.overflowY = 'auto';
       list.removeEventListener('scroll', updateFade);
       list.addEventListener('scroll', updateFade);
       setTimeout(updateFade, 50);
@@ -1595,6 +1597,7 @@
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
     document.querySelector('.more-flavours-toggle:not(#collapse-toggle)').style.display = '';
+    document.getElementById('flavour-options-list').style.overflowY = 'hidden';
     updateCtaPrice();
     updateSavingsBanner();
   }
