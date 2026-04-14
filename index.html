@@ -1579,6 +1579,7 @@
       options.classList.remove('open');
       expandToggle.style.display = '';
       list.style.overflowY = 'hidden';
+      list.scrollTop = 0;
     } else {
       buildFlavourOptions();
       expandToggle.style.display = 'none';
@@ -1597,7 +1598,9 @@
     document.getElementById('flavour-card').classList.remove('open');
     document.getElementById('flavour-options').classList.remove('open');
     document.querySelector('.more-flavours-toggle:not(#collapse-toggle)').style.display = '';
-    document.getElementById('flavour-options-list').style.overflowY = 'hidden';
+    const listEl = document.getElementById('flavour-options-list');
+    listEl.style.overflowY = 'hidden';
+    listEl.scrollTop = 0;
     updateCtaPrice();
     updateSavingsBanner();
   }
