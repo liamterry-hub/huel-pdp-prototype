@@ -424,20 +424,13 @@
     }
 
     /* ── Purchase section ───────────────────────────────────── */
-    /* Figma: bg-white pt-[12px] pb-[24px] px-[24px] gap-[12px] items-end */
-    /* pb reduced to 12px so CTA → 12px gap → savings banner (which sits outside this section) */
+    /* Figma: bg-white pt-[12px] pb-[24px] px-[24px] gap-[12px] */
     .purchase-section {
       background: white;
-      padding: 0 24px 12px;
+      padding: 12px 24px 24px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-    }
-
-    /* Savings banner wrapper — outside pb area, px-24 matches section horizontal padding */
-    .savings-banner-container {
-      background: white;
-      padding: 0 24px 12px;
     }
 
     /* ── Toggle card (beige wrapper) ─────────────────────────── */
@@ -489,18 +482,17 @@
       white-space: nowrap;
     }
 
-    /* Figma: bg-[#c7f1c5] p-[4px] rounded-[4px] text-[12px] Medium tracking-[0.96px] uppercase */
+    /* Figma: gradient green, rounded-8, 12px Medium, no uppercase */
     .save-badge {
-      background: #c7f1c5;
-      border-radius: 4px;
-      padding: 4px;
+      background: linear-gradient(85.4deg, #c7f1c5 37.8%, #cbf6d0 79%, #a3e6b0 100%);
+      border-radius: 8px;
+      padding: 4px 6px;
       font-family: 'Suisse Intl', sans-serif;
       font-size: 12px;
       font-weight: 500;
-      letter-spacing: 0.96px;
-      text-transform: uppercase;
       color: #0c0c0d;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
     }
 
     .save-badge.pulse {
@@ -511,10 +503,6 @@
       0%   { transform: scale(1); }
       40%  { transform: scale(1.12); box-shadow: 0 0 0 3px rgba(199,241,197,0.5); }
       100% { transform: scale(1); }
-    }
-
-    .toggle-btn:not(.active) .save-badge {
-      background: #a8e8a5;
     }
 
     /* ── Delivery frequency ──────────────────────────────────── */
@@ -579,19 +567,19 @@
     }
 
     /* ── Benefits ────────────────────────────────────────────── */
-    /* Mobile Figma 8392-31588: flex-row gap-[12px] */
+    /* Figma: flex-row gap-[8px] justify-center */
     .benefits {
       display: flex;
       flex-direction: row;
-      gap: 12px;
+      gap: 8px;
       align-items: flex-start;
+      justify-content: center;
     }
 
-    /* Mobile: equal-width columns */
     .benefit-row {
       display: flex;
-      flex: 1 0 0;
-      align-items: flex-start;
+      flex: 0 0 auto;
+      align-items: center;
       gap: 4px;
       transition: opacity 0.22s ease;
     }
@@ -608,12 +596,68 @@
     }
     .benefit-row.muted .benefit-icon { color: #b8b8b8; }
 
-    /* Figma: text-[14px] Regular #0c0c0d lh-1.4 */
+    /* Figma: text-[12px] Medium #0c0c0d lh-1.4 */
     .benefit-text {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 12px;
+      font-weight: 500;
       color: #0c0c0d;
       line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    /* ── Section divider line ─────────────────────────────────── */
+    /* Figma: bg-[#d0c5ae] h-px opacity-24 rounded-[2px] */
+    .section-divider-line {
+      height: 1px;
+      background: #d0c5ae;
+      opacity: 0.24;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── Price row ────────────────────────────────────────────── */
+    /* Figma: flex gap-[8px] items-center justify-center */
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .price-amounts {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    /* Figma: text-[16px] Medium */
+    .price-main {
+      font-size: 16px;
+      font-weight: 500;
+      color: #0c0c0d;
+      line-height: 1.4;
+    }
+
+    /* Figma: text-[16px] Regular #6e6e6e line-through */
+    .price-strike {
+      font-size: 16px;
+      font-weight: 400;
+      color: #6e6e6e;
+      text-decoration: line-through;
+      text-decoration-skip-ink: none;
+      line-height: 1.4;
+    }
+
+    /* Figma: gradient green, rounded-8, 12px Medium */
+    .save-today-pill {
+      background: linear-gradient(85.8deg, #c7f1c5 37.8%, #cbf6d0 79%, #a3e6b0 100%);
+      border-radius: 8px;
+      padding: 4px 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #0c0c0d;
+      white-space: nowrap;
     }
 
     /* ── CTA row ─────────────────────────────────────────────── */
@@ -691,46 +735,17 @@
       transition: color 0.35s ease;
     }
 
-    /* Figma: text-[13px] Medium #6e6e6e line-through */
-    .cta-strikethrough {
+    /* Figma: Light separator in CTA button */
+    .cta-separator {
+      font-weight: 300;
+      opacity: 0.7;
+      margin: 0 2px;
+    }
+
+    /* Figma: 13px per-meal text in CTA button */
+    .cta-per-meal {
       font-size: 13px;
       font-weight: 500;
-      color: #6e6e6e;
-      text-decoration: line-through;
-    }
-
-    /* Figma: separate green gradient banner — p-[6px] rounded-[8px] w-full */
-    /* gradient: 80deg, #c7f1c5 37.8%, #cbf6d0 79%, #a3e6b0 100% */
-    .savings-banner {
-      background: linear-gradient(80deg, #c7f1c5 37.836%, #cbf6d0 79.083%, #a3e6b0 100%);
-      border-radius: 8px;
-      padding: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      transition: max-height 0.32s cubic-bezier(0.4,0,0.2,1), opacity 0.28s ease, transform 0.32s cubic-bezier(0.4,0,0.2,1), margin-top 0.32s ease;
-      max-height: 48px;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .savings-banner.hidden {
-      max-height: 0;
-      opacity: 0;
-      padding-top: 0;
-      padding-bottom: 0;
-      transform: translateY(6px);
-    }
-
-    /* Figma: text-[14px] Regular #0c0c0d tracking-[-0.42px] lh-1.4 */
-    .savings-text {
-      font-size: 12px;
-      font-weight: 500;
-      color: #0c0c0d;
-      letter-spacing: 0;
-      line-height: 1.4;
-      white-space: nowrap;
     }
 
     /* ── Desktop product info ─────────────────────────────────── */
@@ -941,8 +956,7 @@
       .flavour-options.open { max-height: 470px; }
       #flavour-options-list { max-height: 433px; gap: 0; }
       .flavour-options-divider { margin: 0 24px; }
-      .purchase-section { padding: 12px 24px 12px; }
-      .savings-banner-container { padding: 0 24px 16px; }
+      .purchase-section { padding: 24px 24px 24px; }
       .product-title { font-size: 42px; letter-spacing: -0.84px; }
       /* Desktop Figma 8392-31873: justify-center gap-[8px], items shrink-0 whitespace-nowrap */
       .benefits { gap: 8px; justify-content: center; }
@@ -962,36 +976,30 @@
     .review-count span { color: #6e6e6e; font-weight: 400; }
 
     /* ── Trustpilot social proof bar ─────────────────────────── */
+    /* Now lives inside .purchase-section — no own padding needed */
     .social-proof-bar {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 24px 16px;
     }
-    @media (min-width: 1024px) {
-      .social-proof-bar { padding-top: 24px; }
-    }
-    .social-proof-tp {
+    .social-proof-stars {
       display: flex;
+      gap: 2px;
       align-items: center;
-      gap: 5px;
-    }
-    .social-proof-tp-wordmark {
-      font-size: 14px;
-      font-weight: 400;
-      color: #0c0c0d;
     }
     .social-proof-divider {
       width: 1px;
-      height: 16px;
+      height: 14px;
       background: #ececed;
       flex-shrink: 0;
     }
     .social-proof-stat {
-      font-size: 14px;
+      font-size: 12px;
       color: #0c0c0d;
       white-space: nowrap;
+      text-decoration: underline;
+      text-decoration-skip-ink: none;
     }
     .social-proof-stat strong { font-weight: 500; }
     .social-proof-stat span { color: #6e6e6e; font-weight: 400; }
@@ -1233,6 +1241,18 @@
         </div>
       </div>
 
+      <!-- Separator -->
+      <div class="section-divider-line" id="benefits-separator"></div>
+
+      <!-- Price row -->
+      <div class="price-row" id="price-row">
+        <div class="price-amounts">
+          <span class="price-main" id="price-main">£30.50</span>
+          <span class="price-strike" id="price-strike">£33.90</span>
+        </div>
+        <div class="save-today-pill" id="save-today">Save £3.40 today</div>
+      </div>
+
       <!-- Delivery frequency — subscription only -->
       <div class="delivery-freq-wrap" id="freq-wrap">
         <div class="delivery-field">
@@ -1261,28 +1281,28 @@
         </div>
       </div>
 
-    </div>
+      <!-- Separator -->
+      <div class="section-divider-line"></div>
 
-    <!-- Savings banner sits between purchase-section and divider, flush against divider -->
-    <div class="savings-banner-container">
-      <div class="savings-banner hidden" id="savings-banner">
-        <span class="savings-text" id="savings-text">You save £3.40 today</span>
+      <!-- Trustpilot social proof -->
+      <div class="social-proof-bar">
+        <div class="social-proof-stars">
+          <!-- 4 full Trustpilot stars -->
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="#00B67A"/><path d="M10 2.5L11.7634 7.93893H17.4721L12.8544 11.3721L14.6177 16.8111L10 13.378L5.38228 16.8111L7.14557 11.3721L2.52786 7.93893H8.23664L10 2.5Z" fill="white"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="#00B67A"/><path d="M10 2.5L11.7634 7.93893H17.4721L12.8544 11.3721L14.6177 16.8111L10 13.378L5.38228 16.8111L7.14557 11.3721L2.52786 7.93893H8.23664L10 2.5Z" fill="white"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="#00B67A"/><path d="M10 2.5L11.7634 7.93893H17.4721L12.8544 11.3721L14.6177 16.8111L10 13.378L5.38228 16.8111L7.14557 11.3721L2.52786 7.93893H8.23664L10 2.5Z" fill="white"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="#00B67A"/><path d="M10 2.5L11.7634 7.93893H17.4721L12.8544 11.3721L14.6177 16.8111L10 13.378L5.38228 16.8111L7.14557 11.3721L2.52786 7.93893H8.23664L10 2.5Z" fill="white"/></svg>
+          <!-- half Trustpilot star -->
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="tp-half"><stop offset="50%" stop-color="#00B67A"/><stop offset="50%" stop-color="#DCDCE6"/></linearGradient></defs><rect width="20" height="20" fill="url(#tp-half)"/><path d="M10 2.5L11.7634 7.93893H17.4721L12.8544 11.3721L14.6177 16.8111L10 13.378L5.38228 16.8111L7.14557 11.3721L2.52786 7.93893H8.23664L10 2.5Z" fill="white"/></svg>
+        </div>
+        <span class="social-proof-stat"><strong>4.3</strong> <span>from 27k reviews</span></span>
+        <div class="social-proof-divider"></div>
+        <span class="social-proof-stat"><strong>4m+</strong> <span>customers</span></span>
       </div>
+
     </div>
 
     <div class="divider"></div>
-  </div>
-
-  <!-- Trustpilot social proof bar -->
-  <div class="social-proof-bar">
-    <div class="social-proof-tp">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="#00B67A"/><path d="M10 2.5L11.7634 7.93893H17.4721L12.8544 11.3721L14.6177 16.8111L10 13.378L5.38228 16.8111L7.14557 11.3721L2.52786 7.93893H8.23664L10 2.5Z" fill="white"/></svg>
-      <span class="social-proof-tp-wordmark">Trustpilot</span>
-    </div>
-    <div class="social-proof-divider"></div>
-    <span class="social-proof-stat"><strong>400m+</strong> <span>meals sold</span></span>
-    <div class="social-proof-divider"></div>
-    <span class="social-proof-stat"><strong>4m+</strong> <span>customers</span></span>
   </div>
 
 </div>
@@ -1368,35 +1388,43 @@
   }
 
   function updateSavingsBanner() {
-    const banner = document.getElementById('savings-banner');
+    const priceMain = document.getElementById('price-main');
+    const priceStrike = document.getElementById('price-strike');
+    const saveToday = document.getElementById('save-today');
     const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0) + selectionBoxQty;
+
     if (totalQty === 0) {
-      banner.classList.add('hidden');
+      priceMain.textContent = '—';
+      priceStrike.style.display = 'none';
+      saveToday.style.display = 'none';
       return;
     }
-    let totalReg = 0, totalSub = 0, totalServings = 0;
+
+    let totalReg = 0, totalSub = 0;
     for (const [name, qty] of Object.entries(flavourQuantities)) {
       const f = flavours.find(f => f.name === name);
       if (f) {
         totalReg += qty * parseFloat(f.price.replace('£', ''));
         totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
-        totalServings += qty * f.servings;
       }
     }
     if (selectionBoxQty > 0) {
       totalReg += selectionBoxQty * 45.00;
       totalSub += selectionBoxQty * 40.50;
-      totalServings += selectionBoxQty * 16;
     }
+
     if (currentMode === 'sub') {
       const saving = totalReg - totalSub;
-      const perMeal = totalSub / totalServings;
-      document.getElementById('savings-text').textContent = `You save £${saving.toFixed(2)} today / Only £${perMeal.toFixed(2)} per meal`;
+      priceMain.textContent = `£${totalSub.toFixed(2)}`;
+      priceStrike.textContent = `£${totalReg.toFixed(2)}`;
+      priceStrike.style.display = '';
+      saveToday.textContent = `Save £${saving.toFixed(2)} today`;
+      saveToday.style.display = '';
     } else {
-      const perMeal = totalReg / totalServings;
-      document.getElementById('savings-text').textContent = `£${perMeal.toFixed(2)} per meal`;
+      priceMain.textContent = `£${totalReg.toFixed(2)}`;
+      priceStrike.style.display = 'none';
+      saveToday.style.display = 'none';
     }
-    banner.classList.remove('hidden');
   }
 
   function updateCtaPrice() {
@@ -1404,35 +1432,35 @@
     const totalQty = Object.values(flavourQuantities).reduce((a, b) => a + b, 0) + selectionBoxQty;
     const ctaBtn = document.getElementById('cta-btn');
 
-    let newHTML;
-    if (totalQty === 0) {
-      newHTML = 'Add to cart';
-    } else {
-      let totalSub = 0, totalReg = 0;
-      for (const [name, qty] of Object.entries(flavourQuantities)) {
-        const f = flavours.find(f => f.name === name);
-        if (f) {
-          totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
-          totalReg += qty * parseFloat(f.price.replace('£', ''));
-        }
-      }
-      if (selectionBoxQty > 0) {
-        totalSub += selectionBoxQty * 40.50;
-        totalReg += selectionBoxQty * 45.00;
-      }
-      const fmtSub = `£${totalSub.toFixed(2)}`;
-      const fmtReg = `£${totalReg.toFixed(2)}`;
-      newHTML = currentMode === 'sub'
-        ? `Add to cart - ${fmtSub}&nbsp;<span class="cta-strikethrough">${fmtReg}</span>`
-        : `Add to cart - ${fmtReg}`;
-    }
-
     if (totalQty === 0) {
       ctaBtn.classList.add('unselected');
-    } else {
-      ctaBtn.classList.remove('unselected');
+      ctaLabel.innerHTML = 'Add to cart';
+      return;
     }
-    ctaLabel.innerHTML = newHTML;
+
+    ctaBtn.classList.remove('unselected');
+
+    let totalSub = 0, totalReg = 0, totalServings = 0;
+    for (const [name, qty] of Object.entries(flavourQuantities)) {
+      const f = flavours.find(f => f.name === name);
+      if (f) {
+        totalSub += qty * parseFloat(f.subPrice.replace('£', ''));
+        totalReg += qty * parseFloat(f.price.replace('£', ''));
+        totalServings += qty * f.servings;
+      }
+    }
+    if (selectionBoxQty > 0) {
+      totalSub += selectionBoxQty * 40.50;
+      totalReg += selectionBoxQty * 45.00;
+      totalServings += selectionBoxQty * 16;
+    }
+
+    if (currentMode === 'sub') {
+      const perMeal = totalSub / totalServings;
+      ctaLabel.innerHTML = `Add to cart <span class="cta-separator">|</span><span class="cta-per-meal"> Only £${perMeal.toFixed(2)} per meal</span>`;
+    } else {
+      ctaLabel.innerHTML = `Add to cart — £${totalReg.toFixed(2)}`;
+    }
   }
 
   function syncPrimaryVisibility() { /* no-op */ }
@@ -1553,7 +1581,7 @@
   buildFlavourOptions();
   updateCtaPrice();
   updateSavingsBanner();
-  if (new URLSearchParams(location.search).get('mode') === 'once') { currentMode = 'once'; document.getElementById('btn-sub').classList.remove('active'); document.getElementById('btn-once').classList.add('active'); document.getElementById('freq-wrap').classList.add('hidden'); document.getElementById('savings-banner').classList.add('hidden'); }
+  if (new URLSearchParams(location.search).get('mode') === 'once') { currentMode = 'once'; document.getElementById('btn-sub').classList.remove('active'); document.getElementById('btn-once').classList.add('active'); document.getElementById('freq-wrap').classList.add('hidden'); document.querySelector('.benefits').style.display = 'none'; const bs = document.getElementById('benefits-separator'); if (bs) bs.style.display = 'none'; updateSavingsBanner(); }
   if (new URLSearchParams(location.search).get('dropdown') === 'open') { window.addEventListener('load', () => { setTimeout(toggleFlavourOptions, 100); }); }
   if (new URLSearchParams(location.search).get('dropdown') === 'scrolled') { window.addEventListener('load', () => { setTimeout(() => { toggleFlavourOptions(); setTimeout(() => { const list = document.getElementById('flavour-options-list'); if (list) list.scrollTop = 180; }, 300); }, 100); }); }
 
@@ -1564,20 +1592,18 @@
     const btnSub = document.getElementById('btn-sub');
     const btnOnce = document.getElementById('btn-once');
     const freqWrap = document.getElementById('freq-wrap');
-    const ctaLabel = document.getElementById('cta-label');
     const saveBadge = document.getElementById('save-badge');
-    const savingsBanner = document.getElementById('savings-banner');
     const benefitsEl = document.querySelector('.benefits');
+    const benefitsSep = document.getElementById('benefits-separator');
     const rows = ['b2','b3'];
-
 
     if (mode === 'sub') {
       btnSub.classList.add('active');
       btnOnce.classList.remove('active');
       freqWrap.style.display = '';
       requestAnimationFrame(() => requestAnimationFrame(() => freqWrap.classList.remove('hidden')));
-      savingsBanner.classList.remove('hidden');
       benefitsEl.style.display = '';
+      if (benefitsSep) benefitsSep.style.display = '';
       rows.forEach(id => document.getElementById(id).classList.remove('muted'));
 
       updateCtaPrice();
@@ -1590,6 +1616,7 @@
         if (freqWrap.classList.contains('hidden')) freqWrap.style.display = 'none';
       }, { once: true });
       benefitsEl.style.display = 'none';
+      if (benefitsSep) benefitsSep.style.display = 'none';
       rows.forEach(id => document.getElementById(id).classList.add('muted'));
 
       updateCtaPrice();
