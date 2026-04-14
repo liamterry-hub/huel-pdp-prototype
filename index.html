@@ -1529,7 +1529,14 @@
         ${selectionBoxControl()}
       </div>
     </div>`;
-    list.innerHTML = offerRow + flavours
+    // Sort: selected flavour first, then other flavours with qty, then the rest
+    const sortedFlavours = [...flavours].sort((a, b) => {
+      const aSelected = a.name === selectedFlavour ? 2 : (flavourQuantities[a.name] ? 1 : 0);
+      const bSelected = b.name === selectedFlavour ? 2 : (flavourQuantities[b.name] ? 1 : 0);
+      return bSelected - aSelected;
+    });
+
+    list.innerHTML = offerRow + sortedFlavours
       .map(f => `
         <div class="flavour-option-item" onclick="selectFlavour('${f.name.replace(/'/g, "\\'")}')">
           <div class="flavour-left">
