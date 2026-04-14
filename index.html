@@ -1582,6 +1582,7 @@
     const isOpen = card.classList.contains('open');
     const list = document.getElementById('flavour-options-list');
     if (isOpen) {
+      buildFlavourOptions();
       card.classList.remove('open');
       options.classList.remove('open');
       expandToggle.style.display = '';
